@@ -4,7 +4,8 @@ CREATE SCHEMA VetoDb;
 
 CREATE TABLE IF NOT EXISTS VetoDB.Clinique(
 	noClinique VARCHAR(10)  NOT NULL,
-	rue  VARCHAR(10)  NOT NULL,
+	nom VARCHAR(10) NOT NULL,
+	rue  VARCHAR(15)  NOT NULL,
 	ville VARCHAR(10)  NOT NULL,
 	province VARCHAR(10)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
@@ -24,13 +25,14 @@ CREATE DOMAIN VetoDB.SexType AS CHAR CHECK(VALUE IN('M','F'));
 CREATE TABLE IF NOT EXISTS VetoDB.Employe(
 	noEmploye  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10)  NOT NULL,
+	estGestionnaire BOOLEAN NOT NULL,
 	nom  VARCHAR(10)  NOT NULL,
 	prenom  VARCHAR(10)  NOT NULL,
 	rue  VARCHAR(10)  NOT NULL,
-	ville VARCHAR(10)  NOT NULL,
+	ville VARCHAR(15)  NOT NULL,
 	province VARCHAR(10)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
-	numTelephone VARCHAR(10)  NOT NULL,
+	numTelephone VARCHAR(15)  NOT NULL,
 	dateNaissance Date not NULL,
 	sexe SexType  not NULL,
 	nas VARCHAR(10) UNIQUE  NOT NULL,
@@ -53,11 +55,11 @@ CREATE TABLE IF NOT EXISTS VetoDB.proprietaireanimal(
 	noClinique VARCHAR(10)  NOT NULL,
 	nom  VARCHAR(10)  NOT NULL,
 	prenom  VARCHAR(10)  NOT NULL,
-	rue  VARCHAR(10)  NOT NULL,
-	ville VARCHAR(10)  NOT NULL,
+	rue  VARCHAR(15)  NOT NULL,
+	ville VARCHAR(15)  NOT NULL,
 	province VARCHAR(10)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
-	numTelephone VARCHAR(10)  NOT NULL,
+	numTelephone VARCHAR(20)  NOT NULL,
 	
 	
 	

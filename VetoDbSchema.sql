@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Clinique(
 CREATE TABLE IF NOT EXISTS VetoDB.Traitement(
 	noTraitement VARCHAR(10)  NOT NULL,
 	description  VARCHAR(10)  NOT NULL,
-	cout  VARCHAR(10)  NOT NULL,
+	cout  Numeric(5,2)  NOT NULL,
 	PRIMARY KEY (noTraitement)
 );
 CREATE DOMAIN VetoDB.SexType AS CHAR CHECK(VALUE IN('M','F'));
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Employe(
 	dateNaissance Date not NULL,
 	sexe SexType  not NULL,
 	nas VARCHAR(10) UNIQUE  NOT NULL,
+	salaire NUMERIC(9,2) DEFAULT 0,
 	
 	PRIMARY KEY (noEmploye),
 	Foreign Key  (noClinique) REFERENCES Clinique(noClinique) ON DELETE RESTRICT ON UPDATE CASCADE

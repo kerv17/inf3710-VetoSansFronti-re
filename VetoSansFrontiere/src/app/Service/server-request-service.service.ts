@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ServerRequestService {
-  private readonly BASE_URL: string = 'http://localhost:3000';
+  private readonly BASE_URL: string = 'http://localhost:3000/veto';
   constructor(private http:HttpClient) { }
 
   basicGet(): Observable<HttpResponse<Animal[]>> {

@@ -2,23 +2,34 @@ import {CommonRoutesConfig} from '../common/common.routes.config';
 import {SqlConnect} from "./services/SqlConnect.service"
 import express from 'express';
 
-export class UsersRoutes extends CommonRoutesConfig {
-    constructor(app: express.Application,private sqlConnect:SqlConnect) {
-        super(app, 'VetRoutes');
+export class UsersRoutes /*extends CommonRoutesConfig*/ {
+    private sqlConnect:SqlConnect;
+    app: express.Application;
+   
+    constructor(app: express.Application,) {
+       // super(app, 'UsersRoutes');
+       
+       this.sqlConnect= new SqlConnect();
+       this.app=app;
+       this.configureRoutes();
+
+       
     }
 
     configureRoutes() {
 
-        this.app.route(`/Veto`)
+        this.app.route(`/veto`)
             .get((req: express.Request, res: express.Response) => {
-            this.sqlConnect.getAllanimals().then(
+            console.log('test');
+                this.sqlConnect.getAllanimals().then(
                 animals=>{
-                    res.status(200).json(animals);
+                    //res.status(200).json(animals);
+                    res.status(200).send(`Post to users`);
                 }
                
             ).catch(
                 err=>{
-                res.sendStatus(404);
+                res.status(404).send('Testing');
             });
                
                 
@@ -27,8 +38,17 @@ export class UsersRoutes extends CommonRoutesConfig {
                 res.status(200).send(`Post to users`);
             });
     
+        this.app.route(`/users`)
+            .get((req: express.Request, res: express.Response) => {
+                res.status(200).send(`List of users`);
+            })
+            .post((req: express.Request, res: express.Response) => {
+                res.status(200).send(`Post to users`);
+            });
+    
         this.app.route(`/users/:userId`)
             .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
+              console.log('test');
                 // this middleware function runs before any request to /users/:userId
                 // but it doesn't accomplish anything just yet---
                 // it simply passes control to the next applicable function below using next()

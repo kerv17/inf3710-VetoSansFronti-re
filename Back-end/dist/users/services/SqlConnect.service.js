@@ -18,22 +18,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SqlConnect = void 0;
 const pg = __importStar(require("pg"));
 const readline = __importStar(require("readline"));
 const { Client } = pg;
-const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: '',
-    password: '',
-    port: 5432,
-});
+let client;
 const query = `
-SELECT *
-FROM VetoDb.Animal
-`;
+SELECT * FROM VetoDB.Animal `;
 class SqlConnect {
     constructor() {
         const rl = readline.createInterface({
@@ -41,28 +42,36 @@ class SqlConnect {
             output: process.stdout
         });
         rl.question("What is the name of your database ? ", function (name) {
-            client.database = name;
-            console.log(client.database);
-            rl.question("What is the password for the dabase ? ", function (password) {
-                client.password = password;
-                console.log(client.password);
-                client.connect();
+            rl.question("What is the password for the database ? ", function (password) {
+                client = new Client({
+                    user: 'postgres',
+                    host: 'localhost',
+                    database: name,
+                    password: password,
+                    port: 5432,
+                });
+                console.log(client);
+                client.connect().then(r => { console.log('sucess'); });
                 rl.close();
             });
         });
     }
     getAllanimals() {
-        client.query(query, (err, res) => {
-            if (err) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let animals = new Array();
+            console.log('here');
+            return client.query(query).then(res => {
+                for (let row of res.rows) {
+                    animals.push(row);
+                }
+                console.log(animals);
+                return animals;
+            }).catch(err => {
                 console.error(err);
-                return;
-            }
-            for (let row of res.rows) {
-                console.log(row);
-            }
-            client.end();
+                throw new Error();
+            });
         });
     }
 }
 exports.SqlConnect = SqlConnect;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3FsQ29ubmVjdC5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vdXNlcnMvc2VydmljZXMvU3FsQ29ubmVjdC5zZXJ2aWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSx1Q0FBeUI7QUFDekIsbURBQXFDO0FBSXJDLE1BQU0sRUFBRSxNQUFNLEVBQUUsR0FBRSxFQUFFLENBQUM7QUFFckIsTUFBTSxNQUFNLEdBQUcsSUFBSSxNQUFNLENBQUM7SUFDdEIsSUFBSSxFQUFFLFVBQVU7SUFDaEIsSUFBSSxFQUFFLFdBQVc7SUFDakIsUUFBUSxFQUFFLEVBQUU7SUFDWixRQUFRLEVBQUUsRUFBRTtJQUNaLElBQUksRUFBRSxJQUFJO0NBQ2IsQ0FBQyxDQUFDO0FBRUgsTUFBTSxLQUFLLEdBQUc7OztDQUdiLENBQUM7QUFHRixNQUFhLFVBQVU7SUFFdkI7UUFDSSxNQUFNLEVBQUUsR0FBRyxRQUFRLENBQUMsZUFBZSxDQUFDO1lBQ2hDLEtBQUssRUFBRSxPQUFPLENBQUMsS0FBSztZQUNwQixNQUFNLEVBQUUsT0FBTyxDQUFDLE1BQU07U0FDekIsQ0FBQyxDQUFDO1FBRUgsRUFBRSxDQUFDLFFBQVEsQ0FBQyxzQ0FBc0MsRUFBRSxVQUFTLElBQUk7WUFDekQsTUFBTSxDQUFDLFFBQVEsR0FBQyxJQUFJLENBQUM7WUFDckIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsUUFBUSxDQUFDLENBQUM7WUFFN0IsRUFBRSxDQUFDLFFBQVEsQ0FBQyx3Q0FBd0MsRUFBRSxVQUFTLFFBQVE7Z0JBQ25FLE1BQU0sQ0FBQyxRQUFRLEdBQUMsUUFBUSxDQUFDO2dCQUN6QixPQUFPLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxRQUFRLENBQUMsQ0FBQztnQkFDN0IsTUFBTSxDQUFDLE9BQU8sRUFBRSxDQUFBO2dCQUNqQixFQUFFLENBQUMsS0FBSyxFQUFFLENBQUE7WUFDYixDQUFDLENBQUMsQ0FBQztRQUVYLENBQUMsQ0FBQyxDQUFDO0lBS1AsQ0FBQztJQUtELGFBQWE7UUFDVCxNQUFNLENBQUMsS0FBSyxDQUFDLEtBQUssRUFBRSxDQUFDLEdBQUcsRUFBRSxHQUFHLEVBQUUsRUFBRTtZQUM3QixJQUFJLEdBQUcsRUFBRTtnQkFDTCxPQUFPLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxDQUFDO2dCQUNuQixPQUFPO2FBQ1Y7WUFDRCxLQUFLLElBQUksR0FBRyxJQUFJLEdBQUcsQ0FBQyxJQUFJLEVBQUU7Z0JBQ3RCLE9BQU8sQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLENBQUM7YUFDcEI7WUFDRCxNQUFNLENBQUMsR0FBRyxFQUFFLENBQUM7UUFDakIsQ0FBQyxDQUFDLENBQUM7SUFDUCxDQUFDO0NBRUE7QUExQ0QsZ0NBMENDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3FsQ29ubmVjdC5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vdXNlcnMvc2VydmljZXMvU3FsQ29ubmVjdC5zZXJ2aWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSx1Q0FBeUI7QUFDekIsbURBQXFDO0FBSXJDLE1BQU0sRUFBRSxNQUFNLEVBQUUsR0FBRSxFQUFFLENBQUM7QUFFckIsSUFBSSxNQUFpQixDQUFDO0FBRXRCLE1BQU0sS0FBSyxHQUFHOzZCQUNlLENBQUM7QUFHOUIsTUFBYSxVQUFVO0lBRXZCO1FBQ0ksTUFBTSxFQUFFLEdBQUcsUUFBUSxDQUFDLGVBQWUsQ0FBQztZQUNoQyxLQUFLLEVBQUUsT0FBTyxDQUFDLEtBQUs7WUFDcEIsTUFBTSxFQUFFLE9BQU8sQ0FBQyxNQUFNO1NBQ3pCLENBQUMsQ0FBQztRQUVILEVBQUUsQ0FBQyxRQUFRLENBQUMsc0NBQXNDLEVBQUUsVUFBUyxJQUFJO1lBR3pELEVBQUUsQ0FBQyxRQUFRLENBQUMsMENBQTBDLEVBQUUsVUFBUyxRQUFRO2dCQUNwRSxNQUFNLEdBQUcsSUFBSSxNQUFNLENBQUM7b0JBQ2pCLElBQUksRUFBRSxVQUFVO29CQUNoQixJQUFJLEVBQUUsV0FBVztvQkFDakIsUUFBUSxFQUFFLElBQUk7b0JBQ2QsUUFBUSxFQUFFLFFBQVE7b0JBQ2xCLElBQUksRUFBRSxJQUFJO2lCQUNiLENBQUMsQ0FBQztnQkFDSCxPQUFPLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDO2dCQUNwQixNQUFNLENBQUMsT0FBTyxFQUFFLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxFQUFFLEdBQUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxRQUFRLENBQUMsQ0FBQSxDQUFBLENBQUMsQ0FBQyxDQUFDO2dCQUNwRCxFQUFFLENBQUMsS0FBSyxFQUFFLENBQUE7WUFDYixDQUFDLENBQUMsQ0FBQztRQUlYLENBQUMsQ0FBQyxDQUFDO0lBS1AsQ0FBQztJQUtPLGFBQWE7O1lBQ2pCLElBQUksT0FBTyxHQUFVLElBQUksS0FBSyxFQUFFLENBQUM7WUFDbEMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQztZQUNuQixPQUFPLE1BQU0sQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBRSxFQUFFO2dCQUluQyxLQUFLLElBQUksR0FBRyxJQUFJLEdBQUcsQ0FBQyxJQUFJLEVBQUU7b0JBRXRCLE9BQU8sQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUM7aUJBRXJCO2dCQUNELE9BQU8sQ0FBQyxHQUFHLENBQUMsT0FBTyxDQUFDLENBQUM7Z0JBR3JCLE9BQU8sT0FBTyxDQUFDO1lBRW5CLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUEsRUFBRTtnQkFFTixPQUFPLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxDQUFDO2dCQUVuQixNQUFNLElBQUksS0FBSyxFQUFFLENBQUM7WUFHMUIsQ0FBQyxDQUFDLENBQUM7UUFFUCxDQUFDO0tBQUE7Q0FFQTtBQWhFRCxnQ0FnRUMifQ==

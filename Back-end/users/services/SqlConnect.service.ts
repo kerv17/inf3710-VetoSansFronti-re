@@ -5,18 +5,10 @@ import {Animal} from '../Interfaces/animalInterface';
 
 const { Client } =pg;
 
-const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: '',
-    password: '',
-    port: 5432,
-});
+let client :pg.Client;
 
 const query = `
-SELECT *
-FROM VetoDb.Animal
-`;
+SELECT * FROM VetoDB.Animal `;
 
 
 export class SqlConnect{
@@ -28,19 +20,26 @@ constructor(){
     });
     
     rl.question("What is the name of your database ? ", function(name) {
-            client.database=name;
-            console.log(client.database);
+            
           
-            rl.question("What is the password for the dabase ? ", function(password) {
-                client.password=password;
-                console.log(client.password);
+            rl.question("What is the password for the database ? ", function(password) {
+                 client = new Client({
+                    user: 'postgres',
+                    host: 'localhost',
+                    database: name,
+                    password: password,
+                    port: 5432,
+                });
+           
                 client.connect().then(r =>{console.log('sucess')});
                rl.close()
             });
+
+           
        
     });
     
-   
+ 
    
     
 }
@@ -50,18 +49,19 @@ constructor(){
 
   async getAllanimals():Promise<Animal[]>{
     let animals:Animal[]=new Array(); 
-   return client.query(query).then(res  => {
+   console.log('here');
+    return client.query(query).then(res  => {
       
       
         
         for (let row of res.rows) {
-            
-            animals.push(row)
+           
+            animals.push(row);
             
         }
-        console.log(animals)
+        console.log(animals);
         
-        client.end();
+        
         return animals;
        
     }).catch(err=>{

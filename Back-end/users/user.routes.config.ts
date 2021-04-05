@@ -23,8 +23,8 @@ export class UsersRoutes /*extends CommonRoutesConfig*/ {
             console.log('test');
                 this.sqlConnect.getAllanimals().then(
                 animals=>{
-                    //res.status(200).json(animals);
-                    res.status(200).send(`Post to users`);
+                    res.status(200).json(animals);
+                  //  res.status(200).send(`Post to users`);
                 }
                
             ).catch(

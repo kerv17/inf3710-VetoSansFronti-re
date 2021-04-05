@@ -1,10 +1,53 @@
-<h2>Clinique {{animal.noClinique}}, Animal {{animal.noAnimal}}</h2>
-<form>
-<label>Nom: </label>
-<input id='name' value={{animal.nom}}>
 
-<label>Proprietaire</label>
-<select id='Proprietaire'>
+<form class="animalForm">
 
-</select>
+    <h2 class="title">Clinique {{animal.noClinique}}, Animal {{animal.noAnimal}}</h2>
+
+<div class="lineForm">
+    <label>Nom: </label>
+    <input id='name' value={{animal.nom}}>
+</div>
+
+<div class="lineForm">
+    <label>Proprietaire</label>
+    <select id='Proprietaire' value={{proprietaires[1].nom[0]}}></select>
+</div>
+
+<div class="lineForm">
+    <label>Type</label>
+    <input id='type' value={{animal.type}}>
+</div>
+
+
+<div class="lineForm">
+    <label>espece</label>
+    <input id='espece' value={{animal.espece}}>
+</div>
+
+<div class="lineForm">
+    <label>description</label>
+    <input id='description' value={{animal.description}}>
+</div>
+
+<div class="lineForm">
+    <label>poids</label>
+    <input id='poids' value={{animal.poids}}>
+</div>
+
+<div class="lineForm">
+    <label>dateNaissance</label>
+    <input id='dateNaissance' disabled value={{animal.dateNaissance}}>
+</div>
+
+<div class="lineForm">
+    <label>dateInscription</label>
+    <input id='dateInscription'disabled value={{animal.dateInscription}}>
+</div>
+
+<div class="lineForm">
+    <label>etatActuel</label>
+    <input id='etatActuel' value={{animal.etatActuel}}>
+</div>
+
+<input type="submit" value="Submit" class="submit">
 </form>

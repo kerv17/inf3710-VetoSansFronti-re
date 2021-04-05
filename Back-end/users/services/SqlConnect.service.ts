@@ -34,7 +34,7 @@ constructor(){
             rl.question("What is the password for the dabase ? ", function(password) {
                 client.password=password;
                 console.log(client.password);
-                client.connect()
+                client.connect().then(r =>{console.log('sucess')});
                rl.close()
             });
        

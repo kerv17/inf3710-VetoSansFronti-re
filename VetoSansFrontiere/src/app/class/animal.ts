@@ -1,5 +1,6 @@
 export interface Animal {
   nom: string;
+  noAnimal:number
 
   noClinique: number;
   noProprietaire: number;

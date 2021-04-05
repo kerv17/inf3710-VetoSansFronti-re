@@ -3,15 +3,25 @@ import {SqlConnect} from "./services/SqlConnect.service"
 import express from 'express';
 
 export class UsersRoutes extends CommonRoutesConfig {
-    constructor(app: express.Application,sqlConnect:SqlConnect) {
-        super(app, 'UsersRoutes');
+    constructor(app: express.Application,private sqlConnect:SqlConnect) {
+        super(app, 'VetRoutes');
     }
 
     configureRoutes() {
 
-        this.app.route(`/users`)
+        this.app.route(`/Veto`)
             .get((req: express.Request, res: express.Response) => {
-                res.status(200).send(`List of users`);
+            this.sqlConnect.getAllanimals().then(
+                animals=>{
+                    res.status(200).json(animals);
+                }
+               
+            ).catch(
+                err=>{
+                res.sendStatus(404);
+            });
+               
+                
             })
             .post((req: express.Request, res: express.Response) => {
                 res.status(200).send(`Post to users`);
@@ -36,6 +46,7 @@ export class UsersRoutes extends CommonRoutesConfig {
             .delete((req: express.Request, res: express.Response) => {
                 res.status(200).send(`DELETE requested for id ${req.params.userId}`);
             });
+            
     
         return this.app;
     }

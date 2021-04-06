@@ -1,5 +1,6 @@
 import * as pg from "pg";
 import * as readline from 'readline';
+import { info } from "winston";
 import {Animal} from '../Interfaces/animalInterface';
 
 
@@ -93,6 +94,44 @@ return client.query(query).then(res  => {
 
 }
 
+async getOneAnimal(info:string):Promise<Animal>{
+  //do a string split to split the values of animal name and number of clinique and owner no hopefully
+  //lets say that the order is nom noProprietaire noClinique 
+  const information = info.split(',');
 
+  const query=`Select * from VetoDb.Animal WHERE nom=`+information[0]+' and noClinique='+information[1]+' and noProprietaire='+information[2];
+  
+   console.log('here');
+    return client.query(getQuery).then((res)  => {
+      
+    const animal:Animal = res.rows[0] ; 
+      
+        return animal;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            
+            throw new Error();
+     
+        
+    });
+
+}
+
+async deleteAnimal(info:string):Promise<string>{
+    const information = info.split(',');
+
+    const query =`DELETE FROM table_name WHERE nom= `+information[0]+' and noClinique='+information[1]+' and noProprietaire='+information[2];
+    return client.query(getQuery).then((res)  => {
+
+            return 'succès';
+           
+        }).catch(err=>{
+            
+                console.error(err);
+                throw new Error();
+        });
+}
 
 }

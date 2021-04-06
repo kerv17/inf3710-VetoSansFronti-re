@@ -58,7 +58,7 @@ constructor(){
             animals.push(row);
             
         }
-        console.log(animals); 
+       
         return animals;
        
     }).catch(err=>{
@@ -98,11 +98,11 @@ async getOneAnimal(info:string):Promise<Animal>{
   //do a string split to split the values of animal name and number of clinique and owner no hopefully
   //lets say that the order is nom noProprietaire noClinique 
   const information = info.split(',');
-
-  const query=`Select * from VetoDb.Animal WHERE noAnimal=`+information[0]+' and noClinique='+information[1];
-   console.log('here');
-    return client.query(getQuery).then((res)  => {
-      
+    console.log(information[0])
+  const query=`Select * from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
+   console.log(query);
+    return client.query(query).then((res)  => {
+    console.log(res);
     const animal:Animal = res.rows[0] ; 
       
         return animal;

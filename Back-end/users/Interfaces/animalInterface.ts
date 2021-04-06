@@ -1,15 +1,16 @@
 export interface Animal {
-    nom: string;
-  
+   
+    noAnimal:string
     noClinique: number;
     noProprietaire: number;
+    nom: string;
   
     type: string;
     espece: string;
-    description: string;
-  
-    poids: number;
+    
     taille: number;
+    poids: number;
+    description: string;
   
     dateNaissance: Date;
     dateInscription: Date;

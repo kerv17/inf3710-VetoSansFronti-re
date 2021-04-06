@@ -3,7 +3,7 @@ export interface Animal {
   noAnimal:number
 
   noClinique: string;
-  noProprietaire: string;
+  noproprietaire: string;
 
   type: string;
   espece: string;

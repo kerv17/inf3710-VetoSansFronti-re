@@ -9,31 +9,48 @@ import { ServerRequestService } from 'src/app/Service/server-request-service.ser
   styleUrls: ['./animal.component.scss']
 })
 export class AnimalComponent implements OnInit {
-  animal:Animal
+  animal:Animal = {} as Animal;
   proprietaires:Proprietaire[];
   constructor(private requestService:ServerRequestService) {
-      this.animal = {
-        nom: 'Tom',
-        noAnimal: 3,
-        noClinique: 1,
-      } as Animal;
       this.proprietaires = [];
       for(let i = 0; i<5; i++){
-        this.proprietaires.push({noClinque:1,noProprietaire:i,nom:['random'+i.toString()]} as Proprietaire)
+        this.proprietaires.push({noClinque:'1',noProprietaire:i.toString(),nom:['random'+i.toString()]} as Proprietaire)
       }
-      requestService.basicGet().subscribe((response)=> {console.log(response);}, (error)=>{console.log(error)});
+      requestService.basicGet().subscribe((response)=> 
+      {
+        this.animal = response.body[0];
+        console.log(response);
+      }, (error)=>{console.log(error)});
+
+
+      
    }
 
   ngOnInit(): void {
     for (const prop of this.proprietaires){
       let a = document.createElement('option');
-      a.value = prop.nom[0];
+      a.value = prop.noProprietaire.toString();
+      console.log(a.value);
       a.innerText = prop.nom[0];
-      document.getElementById('Proprietaire').appendChild(a);
+      (<HTMLSelectElement>document.getElementById('animal-proprietaire')).options.add(a);
       
     }
+    
+    (<HTMLSelectElement>document.getElementById('animal-proprietaire')).value = this.animal.noProprietaire;
   }
 
-  
+  sendAnimalToDB(){
+      this.animal.nom = (<HTMLInputElement>document.getElementById('animal-nom')).value;
+      this.animal.noProprietaire = (<HTMLSelectElement>document.getElementById('animal-proprietaire')).value;
+      this.animal.type = (<HTMLInputElement>document.getElementById('animal-type')).value;
+      this.animal.espece = (<HTMLInputElement>document.getElementById('animal-espece')).value;
+      this.animal.description = (<HTMLInputElement>document.getElementById('animal-description')).value;
+      this.animal.poids = Number((<HTMLInputElement>document.getElementById('animal-poids')).value);
+
+      this.animal.etatactuel = (<HTMLInputElement>document.getElementById('animal-etatActuel')).value;
+
+
+      console.log(this.animal);
+  }
 
 }

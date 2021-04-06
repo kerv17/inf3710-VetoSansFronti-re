@@ -1,6 +1,6 @@
 export interface Proprietaire {
-    noClinque:number
-    noProprietaire:number
+    noClinque:string
+    noProprietaire:string
     nom:string[]
 
     addresse:string[];

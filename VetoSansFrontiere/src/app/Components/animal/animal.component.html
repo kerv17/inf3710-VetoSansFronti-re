@@ -1,53 +1,53 @@
 
-<form class="animalForm">
+<div class="animalForm">
 
     <h2 class="title">Clinique {{animal.noClinique}}, Animal {{animal.noAnimal}}</h2>
 
-<div class="lineForm">
-    <label>Nom: </label>
-    <input id='name' value={{animal.nom}}>
+    <div class="lineForm">
+        <label>Nom </label>
+        <input id='animal-nom' value={{animal.nom}}>
+    </div>
+
+    <div class="lineForm">
+        <label>Proprietaire</label>
+        <select id='animal-proprietaire' value={{proprietaires[1].nom[0]}}></select>
+    </div>
+
+    <div class="lineForm">
+        <label>Type</label>
+        <input id='animal-type' value={{animal.type}}>
+    </div>
+
+
+    <div class="lineForm">
+        <label>espece</label>
+        <input id='animal-espece' value={{animal.espece}}>
+    </div>
+
+    <div class="lineForm">
+        <label>description</label>
+        <input id='animal-description' value={{animal.description}}>
+    </div>
+
+    <div class="lineForm">
+        <label>poids</label>
+        <input id='animal-poids' value={{animal.poids}}>
+    </div>
+
+    <div class="lineForm">
+        <label>dateNaissance</label>
+        <input id='animal-dateNaissance' disabled value={{animal.dateNaissance}}>
+    </div>
+
+    <div class="lineForm">
+        <label>dateInscription</label>
+        <input id='animal-dateInscription'disabled value={{animal.dateInscription}}>
+    </div>
+
+    <div class="lineForm">
+        <label>etatActuel</label>
+        <input id='animal-etatActuel' value={{animal.etatactuel}}>
+    </div>
+
+    <button class="submit" (click)="sendAnimalToDB()">Confirmer</button>
 </div>
-
-<div class="lineForm">
-    <label>Proprietaire</label>
-    <select id='Proprietaire' value={{proprietaires[1].nom[0]}}></select>
-</div>
-
-<div class="lineForm">
-    <label>Type</label>
-    <input id='type' value={{animal.type}}>
-</div>
-
-
-<div class="lineForm">
-    <label>espece</label>
-    <input id='espece' value={{animal.espece}}>
-</div>
-
-<div class="lineForm">
-    <label>description</label>
-    <input id='description' value={{animal.description}}>
-</div>
-
-<div class="lineForm">
-    <label>poids</label>
-    <input id='poids' value={{animal.poids}}>
-</div>
-
-<div class="lineForm">
-    <label>dateNaissance</label>
-    <input id='dateNaissance' disabled value={{animal.dateNaissance}}>
-</div>
-
-<div class="lineForm">
-    <label>dateInscription</label>
-    <input id='dateInscription'disabled value={{animal.dateInscription}}>
-</div>
-
-<div class="lineForm">
-    <label>etatActuel</label>
-    <input id='etatActuel' value={{animal.etatActuel}}>
-</div>
-
-<input type="submit" value="Submit" class="submit">
-</form>

@@ -7,7 +7,7 @@ const { Client } =pg;
 
 let client :pg.Client;
 
-const query = `
+const getQuery = `
 SELECT * FROM VetoDB.Animal `;
 
 
@@ -50,18 +50,14 @@ constructor(){
   async getAllanimals():Promise<Animal[]>{
     let animals:Animal[]=new Array(); 
    console.log('here');
-    return client.query(query).then(res  => {
+    return client.query(getQuery).then(res  => {
       
-      
-        
         for (let row of res.rows) {
            
             animals.push(row);
             
         }
-        console.log(animals);
-        
-        
+        console.log(animals); 
         return animals;
        
     }).catch(err=>{
@@ -74,5 +70,29 @@ constructor(){
     });
   
 }
+
+
+async addAnimal(animal:Animal):Promise<String>{
+
+const query=`Insert Into VetoDb.animal VALUES (`+animal.nom+','+animal.noClinique+','+animal.noProprietaire
++','+animal.type+','+animal.espece+','+animal.description
++','+animal.poids+','+animal.taille+','+animal.dateNaissance+','+animal.dateNaissance+','+animal.etatActuel+')';
+
+return client.query(query).then(res  => {
+
+    return 'success';
+   
+}).catch(err=>{
+    
+        console.error(err);
+        
+        throw new Error();
+ 
+    
+});
+
+}
+
+
 
 }

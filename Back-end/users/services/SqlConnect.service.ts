@@ -75,9 +75,9 @@ constructor(){
 
 async addAnimal(animal:Animal):Promise<String>{
 
-const query=`Insert Into VetoDb.animal VALUES (`+animal.nom+','+animal.noClinique+','+animal.noProprietaire
-+','+animal.type+','+animal.espece+','+animal.description
-+','+animal.poids+','+animal.taille+','+animal.dateNaissance+','+animal.dateNaissance+','+animal.etatActuel+')';
+const query=`Insert Into VetoDb.animal VALUES (`+animal.noAnimal+','+animal.noClinique+','+animal.noProprietaire
++','+animal.nom+','+animal.type+','+animal.espece+','+animal.taille
++','+animal.poids+','+animal.description+','+animal.dateNaissance+','+animal.dateNaissance+','+animal.etatActuel+')';
 
 return client.query(query).then(res  => {
 
@@ -99,8 +99,7 @@ async getOneAnimal(info:string):Promise<Animal>{
   //lets say that the order is nom noProprietaire noClinique 
   const information = info.split(',');
 
-  const query=`Select * from VetoDb.Animal WHERE nom=`+information[0]+' and noClinique='+information[1]+' and noProprietaire='+information[2];
-  
+  const query=`Select * from VetoDb.Animal WHERE noAnimal=`+information[0]+' and noClinique='+information[1];
    console.log('here');
     return client.query(getQuery).then((res)  => {
       
@@ -122,7 +121,7 @@ async getOneAnimal(info:string):Promise<Animal>{
 async deleteAnimal(info:string):Promise<string>{
     const information = info.split(',');
 
-    const query =`DELETE FROM table_name WHERE nom= `+information[0]+' and noClinique='+information[1]+' and noProprietaire='+information[2];
+    const query =`DELETE FROM VetoDb.Animal WHERE noAnimal=`+information[0]+' and noClinique='+information[1];
     return client.query(getQuery).then((res)  => {
 
             return 'succès';

@@ -7,7 +7,7 @@ export class UsersRoutes /*extends CommonRoutesConfig*/ {
     app: express.Application;
    
     constructor(app: express.Application,) {
-       // super(app, 'UsersRoutes');
+     
        
        this.sqlConnect= new SqlConnect();
        this.app=app;
@@ -56,7 +56,7 @@ export class UsersRoutes /*extends CommonRoutesConfig*/ {
          .patch((req: express.Request,res:express.Response)=>{
               
           
-            this.sqlConnect.deleteAnimal(req.params.info).then( 
+            this.sqlConnect.modifyAnimalInfo(req.body).then( 
              message=>{
                  res.status(200).send(message)  ;
              

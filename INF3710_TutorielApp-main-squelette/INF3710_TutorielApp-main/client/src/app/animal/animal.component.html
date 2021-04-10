@@ -1,0 +1,90 @@
+<div id="room">
+  <h1>Animals</h1>
+
+  <div class="divider"></div>
+
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="cliniqueSelect">Clinique</label>
+      </div>
+      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex)">
+        <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
+      </select>
+    </div>
+  </div>
+
+  <table
+    id="ht"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+    <thead class="roomsheader">
+      <th class="contentCell">Animal Number</th>
+      <th class="contentCell">Owner</th>
+      <th class="contentCell">Name</th>
+      
+      <th class="contentCell">Type</th> 
+      <th class="contentCell">Espece</th>
+
+      <th class="contentCell">Size</th>
+      <th class="contentCell">Weight</th>
+
+      <th class="contentCell">Description</th>
+
+      <th class="contentCell">Birthdate</th>
+      <th class="contentCell">Inscription date</th>  
+
+      <th class="contentCell">Current State</th>
+      <th class="contentCell">Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let animal of animaux; let i = index">
+        <td class="contentCell">{{ animal.noanimal }}</td>
+        <td class="contentCell">
+          <select class="custom-select" id="proprietaireSelect" (change)="updateOwner(i, $event.target.options.selectedIndex)">
+            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.nom }}</option>
+          </select>
+        </td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalName($event, i)">{{ animal.nom }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalType($event, i)">{{ animal.type }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalEspece($event, i)">{{ animal.espece }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalTaille($event, i)">{{ animal.taille }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalPoids($event, i)">{{ animal.poids }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalDescription($event, i)">{{ animal.description }}</td>
+        <td class="contentCell">{{ animal.datenaissance }}</td>
+        <td class="contentCell">{{ animal.dateinscription }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeAnimalState($event, i)">{{ animal.etatactuel }}</td>
+
+        <td class="actionCell">
+          <button type="button" class="submitbtn" (click)="updateAnimal(i)"> <i class="fa fa-edit"></i></button>
+          <button type="button" class="deletebtn" (click)="deleteAnimal(room.hotelnb, room.roomnb)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+
+      <tr class="blank_row">
+        <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNumber></td>
+        <td class="contentCell">
+          <select class="custom-select" id="proprietaireSelect">
+            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.nom }}</option>
+          </select>
+        </td>
+        <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNom></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalType></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalEspece></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalTaille></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalPoids></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDescrpition></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateNaissance></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateInscription></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalEtat></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="btn" (click)="insertAnimal()">+</button>
+</div>

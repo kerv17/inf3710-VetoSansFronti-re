@@ -1,8 +1,8 @@
 export interface Animal {
    
-    noAnimal:string
-    noClinique: number;
-    noProprietaire: number;
+    noanimal:string
+    noclinique: string;
+    noproprietaire: string;
     nom: string;
   
     type: string;
@@ -12,8 +12,8 @@ export interface Animal {
     poids: number;
     description: string;
   
-    dateNaissance: Date;
-    dateInscription: Date;
+    datenaissance: Date;
+    dateinscription: Date;
   
-    etatActuel: string;
+    etatactuel: string;
   }

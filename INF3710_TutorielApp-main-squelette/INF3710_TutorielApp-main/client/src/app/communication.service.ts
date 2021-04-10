@@ -7,6 +7,7 @@ import { Hotel } from "../../../common/tables/Hotel";
 import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Clinique } from "../../../common/tables/Clinique";
+import { Animal } from "../../../common/tables/Animal";
 
 @Injectable()
 export class CommunicationService {
@@ -71,6 +72,39 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<number>("deleteClinique")));
   }
   // //////////////////////////////////////////////////////////////////////
+
+  // Animaux //////////////////////////////////////////////////////////////
+  public getAnimaux(cliniqueNb:string): Observable<Animal[]> {
+    return this.http
+      .get<Animal[]>(this.BASE_URL + "/animals/" + cliniqueNb)
+      .pipe(catchError(this.handleError<Animal[]>("getAnimaux")));
+  }
+
+  public getAnimal(cliniqueNb:string,noAnimal:number): Observable<Animal> {
+    return this.http
+      .get<Animal>(this.BASE_URL + "/animals/" + noAnimal + "," + cliniqueNb)
+      .pipe(catchError(this.handleError<Animal>("getAnimal")));
+  }
+
+  public updateAnimal(animal: Animal): Observable<number> {
+    return this.http
+      .put<number>(this.BASE_URL + "/animals/update", animal)
+      .pipe(catchError(this.handleError<number>("updateAnimal")));
+  }
+
+  public deleteAnimal(noClinique: string, noAnimal: string): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + `/animals/delete/${noClinique}/${noAnimal}`, {})
+      .pipe(catchError(this.handleError<number>("deleteAnimal")));
+  }
+
+  public insertAnimal(animal: Animal): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + "/animals/insert", animal)
+      .pipe(catchError(this.handleError<number>("insertAnimal")));
+  }
+  // ///////////////////////////////////////////////////////////////////////
+
 
   public getHotelPKs(): Observable<HotelPK[]> {
     return this.http

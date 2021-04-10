@@ -32,7 +32,7 @@ export class AnimalComponent implements OnInit {
   constructor(private communicationService: CommunicationService) { }
   
   ngOnInit() {
-      //this.createFakeDb();
+      
   }
   noClinique = '';
 
@@ -50,6 +50,19 @@ export class AnimalComponent implements OnInit {
       this.animaux = animaux;
     })
   }
+
+  public getCliniques(): void {
+    this.communicationService.getCliniques().subscribe((cliniques: Clinique[]) =>{
+      this.cliniques = cliniques;
+    })
+  }
+
+  public getProprietaires(): void {
+    this.communicationService.getProprietaires().subscribe((proprietaires: Proprietaire[]) =>{
+      this.proprietaires = proprietaires;
+    })
+  }
+
 
   public updateSelectedClinique(index: number): void {
       this.noClinique = this.cliniques[index].noclinique;

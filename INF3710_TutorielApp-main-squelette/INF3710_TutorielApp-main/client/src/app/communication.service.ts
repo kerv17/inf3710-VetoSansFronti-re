@@ -8,6 +8,7 @@ import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Clinique } from "../../../common/tables/Clinique";
 import { Animal } from "../../../common/tables/Animal";
+import { Proprietaire } from "../../../common/tables/proprietaire";
 
 @Injectable()
 export class CommunicationService {
@@ -105,6 +106,13 @@ export class CommunicationService {
   }
   // ///////////////////////////////////////////////////////////////////////
 
+  // PROPRIETAIRES /////////////////////////////////////////////////////////
+  public getProprietaires(): Observable<Proprietaire[]> {
+    return this.http
+      .get<Proprietaire[]>(this.BASE_URL + "/proprietaires")
+      .pipe(catchError(this.handleError<Proprietaire[]>("getProprietaires")));
+  }
+  // ///////////////////////////////////////////////////////////////////////
 
   public getHotelPKs(): Observable<HotelPK[]> {
     return this.http

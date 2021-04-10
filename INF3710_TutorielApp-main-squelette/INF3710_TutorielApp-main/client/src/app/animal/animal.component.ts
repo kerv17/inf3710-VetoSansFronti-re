@@ -32,7 +32,7 @@ export class AnimalComponent implements OnInit {
   constructor(private communicationService: CommunicationService) { }
   
   ngOnInit() {
-      
+      this.refresh();
   }
   noClinique = '';
 
@@ -71,6 +71,8 @@ export class AnimalComponent implements OnInit {
 
   public refresh(){
     this.getAnimaux(this.noClinique);
+    this.getCliniques();
+    this.getProprietaires();
   }
 
 

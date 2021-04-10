@@ -26,11 +26,11 @@ export class RoomComponent implements OnInit {
   public constructor(private communicationService: CommunicationService) {}
 
   public ngOnInit(): void {
-    this.communicationService.getHotelPKs().subscribe((hotelPKs: HotelPK[]) => {
+    /* this.communicationService.getHotelPKs().subscribe((hotelPKs: HotelPK[]) => {
       this.hotelPKs = hotelPKs;
       this.selectedHotel = this.hotelPKs[0];
       this.getRooms();
-    });
+    }); */
   }
 
   public updateSelectedHotel(hotelID: any) {
@@ -40,11 +40,11 @@ export class RoomComponent implements OnInit {
   }
 
   public getRooms(): void {
-    this.communicationService
+    /* this.communicationService
       .getRooms(this.selectedHotel.hotelnb)
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
-      });
+      }); */
   }
 
   private refresh() {
@@ -65,11 +65,11 @@ export class RoomComponent implements OnInit {
   }
 
   public deleteRoom(hotelNb: string, roomNb: string) {
-    this.communicationService
+    /* this.communicationService
       .deleteRoom(hotelNb, roomNb)
       .subscribe((res: any) => {
         this.refresh();
-      });
+      }); */
   }
 
   public insertRoom(): void {
@@ -80,16 +80,16 @@ export class RoomComponent implements OnInit {
       price: this.newRoomPrice.nativeElement.innerText,
     };
 
-    this.communicationService.insertRoom(room).subscribe((res: number) => {
+    /* this.communicationService.insertRoom(room).subscribe((res: number) => {
       this.refresh();
-    });
+    }); */
   }
 
   public updateRoom(i: number) {
-    this.communicationService
+    /* this.communicationService
       .updateRoom(this.rooms[i])
       .subscribe((res: any) => {
         this.refresh();
-      });
+      }); */
   }
 }

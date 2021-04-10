@@ -34,13 +34,13 @@ export class HotelComponent {
       city: this.newHotelCity.nativeElement.innerText,
     };
 
-    this.communicationService.insertHotel(hotel).subscribe((res: number) => {
+    /* this.communicationService.insertHotel(hotel).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
       }
       this.refresh();
       this.duplicateError = res === -1;
-    });
+    }); */
   }
 
   private refresh() {
@@ -51,9 +51,9 @@ export class HotelComponent {
   }
 
   public deleteHotel(hotelNb: string) {
-    this.communicationService.deleteHotel(hotelNb).subscribe((res: any) => {
+    /* this.communicationService.deleteHotel(hotelNb).subscribe((res: any) => {
       this.refresh();
-    });
+    }); */
   }
 
   public changeHotelName(event: any, i:number){
@@ -67,8 +67,8 @@ export class HotelComponent {
   }
 
   public updateHotel(i: number) {
-    this.communicationService.updateHotel(this.hotels[i]).subscribe((res: any) => {
+    /* this.communicationService.updateHotel(this.hotels[i]).subscribe((res: any) => {
       this.refresh();
-    });
+    }); */
   }
 }

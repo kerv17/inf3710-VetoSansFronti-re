@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HotelPK } from "../../../../common/tables/HotelPK";
 import { Room } from "../../../../common/tables/Room";
-import { Guest } from "../../../../common/tables/Guest";
+//import { Guest } from "../../../../common/tables/Guest";
 import { CommunicationService } from "../communication.service";
 
 @Component({
@@ -12,7 +12,7 @@ import { CommunicationService } from "../communication.service";
 export class GuestComponent implements OnInit {
   public hotelPKs: HotelPK[] = [];
   public rooms: Room[] = [];
-  public guests: Guest[] = [];
+  public guests: Room[] = [];
 
   public duplicateError: boolean = false;
   public invalidHotelPK: boolean = false;
@@ -66,7 +66,7 @@ export class GuestComponent implements OnInit {
   public getGuests(): void {
     this.communicationService
       .getGuests(this.selectedHotel.hotelnb, this.selectedRoom.roomnb)
-      .subscribe((guests: Guest[]) => {
+      .subscribe((guests: Room[]) => {
         this.guests = guests;
       });
   }

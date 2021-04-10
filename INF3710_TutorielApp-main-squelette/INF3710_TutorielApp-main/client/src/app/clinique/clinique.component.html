@@ -1,0 +1,53 @@
+<div id="clinique">
+  <h1>Cliniques</h1>
+
+  <div class="divider"></div>
+
+  <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
+    <thead class="header">
+      <th class="contentCell">CLINIQUE NUMBER</th>
+      <th class="contentCell">CLINIQUE NAME</th>
+      <th class="contentCell">ADDRESS</th>
+      <th class="contentCell">CITY</th>
+      <th class="contentCell">PROVINCE</th>
+      <th class="contentCell">POSTAL CODE</th>
+      <th class="contentCell">PHONE</th>
+      <th class="contentCell">FAX</th>
+      <th class="actionCell">ACTION</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let clinique of cliniques; let i = index">
+        <td class="contentCell">{{ clinique.noclinique }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniqueName($event, i)">{{ clinique.nom}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniqueStreet($event, i)">{{ clinique.rue }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniqueCity($event, i)">{{ clinique.ville }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniqueProvince($event, i)">{{ clinique.province }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniquePostal($event, i)">{{ clinique.codepostal }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniquePhone($event, i)">{{ clinique.numtelephone }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCliniqueFax($event, i)">{{ clinique.numtelecopieur }}</td>
+        
+        <td class="actionCell">
+          <button type="button" class="submitbtn" (click)="updateHotel(i)"><i class="fa fa-edit"></i></button>
+          <button type="button" class="deletebtn" (click)="deleteHotel(hotel.hotelnb)"><i class="fa fa-trash-o"></i></button>
+        </td>
+      </tr>
+
+      <tr class="blank_row">
+        <td class="contentCell" contenteditable="true" placeholder="New Number" #newCliniqueNumber></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Name" #newCliniqueName></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Address" #newCliniqueStreet></td>
+        <td class="contentCell" contenteditable="true" placeholder="New City" #newCliniqueCity></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Province" #newCliniqueProvince></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Postal Code" #newCliniquepostal></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Phone #" #newCliniquePhone></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Fax" #newCliniqueFax></td>
+
+        <td class="contentCell"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <button type="button" class="btn" (click)="insertClinique()">+</button>
+
+</div>

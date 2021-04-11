@@ -1,0 +1,36 @@
+<div id="room">
+  <h1>Animals</h1>
+
+  <div class="divider"></div>
+
+
+  <table
+    id="ht"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+    <thead class="roomsheader">
+      <th class="contentCell">Exam number</th>
+      <th class="contentCell">Treatment number</th>
+      <th class="contentCell">Treatment name</th>
+      <th class="contentCell">Treatment amount</th>
+      <th class="contentCell">Date begin</th>
+      <th class="contentCell">Date end</th>
+      
+    </thead>
+    <tbody>
+      <tr *ngFor="let traitement of traitements; let i = index">
+          <td class="contentCell">{{traitement.noexamen}}</td>
+          <td class="contentCell">{{traitement.notraitement}}</td>
+          <td class="contentCell">TO BE FILLED LATER</td>
+          <td class="contentCell">{{traitement.quantitetraitement}}</td>
+          <td class="contentCell">{{traitement.datedebut}}</td>
+          <td class="contentCell">{{traitement.datefin}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+</div>

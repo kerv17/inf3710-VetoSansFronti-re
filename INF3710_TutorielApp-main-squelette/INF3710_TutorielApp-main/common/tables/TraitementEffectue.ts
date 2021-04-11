@@ -1,10 +1,10 @@
 export interface TraitementEffectue {
-noFacture:string;
-noExamen:string;
-noClinique:string;
-noTraitement:string;
-quantiteTraitement:string;
-dateDebut:Date;
+nofacture:string;
+noexamen:string;
+noclinique:string;
+notraitement:string;
+quantitetraitement:string;
+datedebut:Date;
 datefin:Date;
 
 

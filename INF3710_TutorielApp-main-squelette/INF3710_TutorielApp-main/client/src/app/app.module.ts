@@ -3,12 +3,13 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { AnimalComponent } from "./animal/animal.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { CliniqueComponent } from "./clinique/clinique.component";
 import { CommunicationService } from "./communication.service";
-import { CliniqueComponent } from './clinique/clinique.component';
-import { ProprietaireAnimalComponent } from './proprietaire-animal/proprietaire-animal.component';
-import { AnimalComponent } from './animal/animal.component';
+import { ProprietaireAnimalComponent } from "./proprietaire-animal/proprietaire-animal.component";
+import { TraitementComponent } from "./traitement/traitement.component";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AnimalComponent } from './animal/animal.component';
     CliniqueComponent,
     ProprietaireAnimalComponent,
     AnimalComponent,
+    TraitementComponent,
   ],
   imports: [
     CommonModule,

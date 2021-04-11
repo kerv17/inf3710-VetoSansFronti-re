@@ -55,8 +55,8 @@
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalTaille($event, i)">{{ animal.taille }}</td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalPoids($event, i)">{{ animal.poids }}</td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalDescription($event, i)">{{ animal.description }}</td>
-        <td class="contentCell">{{ animal.datenaissance }}</td>
-        <td class="contentCell">{{ animal.dateinscription }}</td>
+        <td class="contentCell" class="date">{{ animal.datenaissance.substring(0,10) }}</td>
+        <td class="contentCell" class="date">{{ animal.dateinscription.substring(0,10) }}</td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalState($event, i)">{{ animal.etatactuel }}</td>
 
         <td class="actionCell">
@@ -83,9 +83,10 @@
         <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateNaissance></td>
         <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateInscription></td>
         <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalEtat></td>
+        <button type="button" class="btn" (click)="insertAnimal()">Ajouter</button>
       </tr>
     </tbody>
   </table>
 
-  <button type="button" class="btn" (click)="insertAnimal()">+</button>
+  
 </div>

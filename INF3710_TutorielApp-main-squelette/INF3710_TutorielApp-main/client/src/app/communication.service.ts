@@ -7,6 +7,8 @@ import { Hotel } from "../../../common/tables/Hotel";
 import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Clinique } from "../../../common/tables/Clinique";
+import { Animal } from "../../../common/tables/Animal";
+import { Proprietaire } from "../../../common/tables/proprietaire";
 
 @Injectable()
 export class CommunicationService {
@@ -29,27 +31,9 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<Hotel[]>("getHotels")));
   }
 
-  // HOTELS ///////////////////////////////////////////////////////////
-  public insertHotel(hotel: Hotel): Observable<number> {
-    return this.http
-      .post<number>(this.BASE_URL + "/hotels/insert", hotel)
-      .pipe(catchError(this.handleError<number>("insertHotel")));
+  public getGuests(i:string, j:string): Observable<Hotel[]>{
+    return {} as Observable<Hotel[]>;
   }
-
-  public updateHotel(hotel: Hotel): Observable<number> {
-    return this.http
-      .put<number>(this.BASE_URL + "/hotels/update", hotel)
-      .pipe(catchError(this.handleError<number>("updateHotel")));
-  }
-
-  public deleteHotel(hotelNb: string): Observable<number> {
-    return this.http
-      .post<number>(this.BASE_URL + "/hotels/delete/" + hotelNb, {})
-      .pipe(catchError(this.handleError<number>("deleteHotel")));
-  }
-  // //////////////////////////////////////////////////////////////////////
-
-
 
 
   // CLINIQUES ///////////////////////////////////////////////////////////
@@ -72,35 +56,45 @@ export class CommunicationService {
   }
   // //////////////////////////////////////////////////////////////////////
 
-  public getHotelPKs(): Observable<HotelPK[]> {
+  // Animaux //////////////////////////////////////////////////////////////
+  public getAnimaux(cliniqueNb:string): Observable<Animal[]> {
     return this.http
-      .get<HotelPK[]>(this.BASE_URL + "/hotels/hotelNb")
-      .pipe(catchError(this.handleError<HotelPK[]>("getHotelPKs")));
+      .get<Animal[]>(this.BASE_URL + "/animals/" + cliniqueNb)
+      .pipe(catchError(this.handleError<Animal[]>("getAnimaux")));
   }
 
-  public getRooms(hotelNb: string): Observable<Room[]> {
+  public getAnimal(cliniqueNb:string,noAnimal:number): Observable<Animal> {
     return this.http
-      .get<Room[]>(this.BASE_URL + `/rooms?hotelNb=${hotelNb}`)
-      .pipe(catchError(this.handleError<Room[]>("getRooms")));
+      .get<Animal>(this.BASE_URL + "/animals/" + noAnimal + "," + cliniqueNb)
+      .pipe(catchError(this.handleError<Animal>("getAnimal")));
   }
 
-  public insertRoom(room: Room): Observable<number> {
+  public updateAnimal(animal: Animal): Observable<number> {
     return this.http
-      .post<number>(this.BASE_URL + "/rooms/insert", room)
-      .pipe(catchError(this.handleError<number>("inserHotel")));
+      .put<number>(this.BASE_URL + "/animals/update", animal)
+      .pipe(catchError(this.handleError<number>("updateAnimal")));
   }
 
-  public updateRoom(room: Room): Observable<number> {
+  public deleteAnimal(noClinique: string, noAnimal: string): Observable<number> {
     return this.http
-      .put<number>(this.BASE_URL + "/rooms/update", room)
-      .pipe(catchError(this.handleError<number>("updateRoom")));
+      .post<number>(this.BASE_URL + `/animals/delete/${noClinique}/${noAnimal}`, {})
+      .pipe(catchError(this.handleError<number>("deleteAnimal")));
   }
 
-  public deleteRoom(hotelNb: string, roomNb: string): Observable<number> {
+  public insertAnimal(animal: Animal): Observable<number> {
     return this.http
-      .post<number>(this.BASE_URL + `/rooms/delete/${hotelNb}/${roomNb}`, {})
-      .pipe(catchError(this.handleError<number>("deleteRoom")));
+      .post<number>(this.BASE_URL + "/animals/insert", animal)
+      .pipe(catchError(this.handleError<number>("insertAnimal")));
   }
+  // ///////////////////////////////////////////////////////////////////////
+
+  // PROPRIETAIRES /////////////////////////////////////////////////////////
+  public getProprietaires(): Observable<Proprietaire[]> {
+    return this.http
+      .get<Proprietaire[]>(this.BASE_URL + "/proprietaires")
+      .pipe(catchError(this.handleError<Proprietaire[]>("getProprietaires")));
+  }
+  // ///////////////////////////////////////////////////////////////////////
 
 
 

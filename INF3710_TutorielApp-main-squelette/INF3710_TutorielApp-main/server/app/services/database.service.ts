@@ -5,7 +5,8 @@ import { Room } from "../../../common/tables/Room";
 import { Hotel } from "../../../common/tables/Hotel";
 import { Animal } from "../../../common/tables/Animal";
 import{TraitementEffectue} from "../../../common/tables/TraitementEffectue"
-
+import{Proprietaire} from "../../../common/tables/proprietaire"
+import {Clinique} from "../../..//common/tables/Clinique"
 
 
 
@@ -103,9 +104,9 @@ async getOneAnimal(info:string):Promise<Animal>{
 //Add an animal
 async addAnimal(animal:Animal):Promise<String>{
   const client = await this.pool.connect();
-  const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noAnimal+'`'+','+'`'+animal.noClinique+'`'+','+'`'+animal.noProprietaire
+  const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noanimal+'`'+','+'`'+animal.noclinique+'`'+','+'`'+animal.noproprietaire
   +','+animal.nom+','+animal.type+','+animal.espece+','+animal.taille
-  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.dateNaissance+'`'+','+'`'+animal.dateNaissance+'`'+','+'`'+animal.etatActuel+'`'+')';
+  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.dateinscription+'`'+','+'`'+animal.etatactuel+'`'+')';
   
   return client.query(query).then(res  => {
       client.release();
@@ -144,11 +145,11 @@ async addAnimal(animal:Animal):Promise<String>{
 async modifyAnimalInfo(animal:Animal):Promise<string>{
   
   const client = await this.pool.connect();
-  const query=`UPDATE VetoDb.Animal SET noProprietaire= ` +'`'+animal.noProprietaire+'`'
+  const query=`UPDATE VetoDb.Animal SET noProprietaire= ` +'`'+animal.noproprietaire+'`'
   +',nom='+'`'+animal.nom+'`'+',taille'+'`'+animal.taille
   +'`'+',poids='+'`'+animal.poids+'`'+',description='+'`'+animal.description+'`'+',etatActuel'
-  +'`'+animal.etatActuel+'`'+'Where noAnimal='
-  +'`'+animal.noAnimal+'`'+'and noClinique='+'`'+animal.noClinique+'`;'; 
+  +'`'+animal.etatactuel+'`'+'Where noAnimal='
+  +'`'+animal.noanimal+'`'+'and noClinique='+'`'+animal.noclinique+'`;'; 
   return client.query(query).then((res)  => {
     client.release();
       return 'succes';
@@ -160,10 +161,64 @@ async modifyAnimalInfo(animal:Animal):Promise<string>{
   });
 
 }
+///========Cliniques===========
+
+
+
+public async getAllCliniques():Promise<Clinique[]>{
+ 
+  const getQuery = `SELECT * FROM VetoDB.Clinique ;` ;
+  const client = await this.pool.connect();
+  console.log('here');
+
+  let cliniques:Clinique[]=new Array(); 
+ 
+  return client.query(getQuery).then(res  => {
+    
+      for (let row of res.rows) {
+         
+          cliniques.push(row);
+          
+      }
+      client.release();
+      return cliniques;
+     
+  }).catch(err=>{
+      
+          console.error(err);
+          client.release();
+          throw new Error();
+  });
+}
+
 
 ///========Proprietaires========
 
-public async getAllProprietaires(info:string)
+public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
+ 
+    const getQuery = `SELECT * FROM VetoDB.ProprietaireAnimal Where noCLinique= '${noClinique}';` ;
+    const client = await this.pool.connect();
+    console.log('here');
+
+    let proprietaires:Proprietaire[]=new Array(); 
+   
+    return client.query(getQuery).then(res  => {
+      
+        for (let row of res.rows) {
+           
+            proprietaires.push(row);
+            
+        }
+        client.release();
+        return proprietaires;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            client.release();
+            throw new Error();
+    });
+}
 
 
 ///========Examen========== 

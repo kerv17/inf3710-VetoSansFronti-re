@@ -137,8 +137,30 @@ export class DatabaseController {
       }
     );
 
+  //===Proprietaire Routes
+  router.get("/proprietaires/:info", (req: Request, res: Response, _: NextFunction) => {
   
+    this.databaseService
+      .getAllProprietaires(req.params.info).then(proprietaires =>{
 
+        res.json(proprietaires);})
+      .catch((e: Error) => {
+        console.error(e);
+        res.sendStatus(404);
+      });
+  });
+    // =======Clinique Routes =====
+    router.get("/cliniques", (req: Request, res: Response, _: NextFunction) => {
+  
+      this.databaseService
+        .getAllCliniques().then(cliniques =>{
+  
+          res.json(cliniques);})
+        .catch((e: Error) => {
+          console.error(e);
+          res.sendStatus(404);
+        });
+    });
     // ======= ROOMS ROUTES =======
     router.get("/rooms", (req: Request, res: Response, _: NextFunction) => {
       const hotelNb = req.query.hotelNb ? req.query.hotelNb : "";

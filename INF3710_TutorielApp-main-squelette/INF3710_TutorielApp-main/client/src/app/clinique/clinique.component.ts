@@ -9,7 +9,9 @@ import { Clinique } from '../../../../common/tables/Clinique'
 })
 export class CliniqueComponent implements OnInit {
 
-  constructor(private communicationService: CommunicationService) { }
+  constructor(private communicationService: CommunicationService) {
+    this.refresh();
+   }
   @ViewChild("newCliniqueNumber") newCliniqueNumber: ElementRef;
   @ViewChild("newCliniqueName") newCliniqueName: ElementRef;
   @ViewChild("newCliniqueStreet") newCliniqueStreet: ElementRef;

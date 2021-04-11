@@ -10,6 +10,8 @@ import { GuestComponent } from "./guest/guest.component";
 import { HotelComponent } from "./hotel/hotel.component";
 import { RoomComponent } from "./room/room.component";
 import { CliniqueComponent } from './clinique/clinique.component';
+import { ProprietaireAnimalComponent } from './proprietaire-animal/proprietaire-animal.component';
+import { AnimalComponent } from './animal/animal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { CliniqueComponent } from './clinique/clinique.component';
     HotelComponent,
     GuestComponent,
     CliniqueComponent,
+    ProprietaireAnimalComponent,
+    AnimalComponent,
   ],
   imports: [
     CommonModule,

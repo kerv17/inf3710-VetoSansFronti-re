@@ -32,11 +32,11 @@ export class GuestComponent implements OnInit {
   public constructor(private communicationService: CommunicationService) {}
 
   public ngOnInit(): void {
-    this.communicationService.getHotelPKs().subscribe((hotelPKs: HotelPK[]) => {
+    /* this.communicationService.getHotelPKs().subscribe((hotelPKs: HotelPK[]) => {
       this.hotelPKs = hotelPKs;
       this.selectedHotel = this.hotelPKs[0];
       this.getRooms();
-    });
+    }); */
   }
 
   public updateSelectedHotel(hotelID: any) {
@@ -51,12 +51,12 @@ export class GuestComponent implements OnInit {
   }
 
   public getRooms(): void {
-    this.communicationService
+    /* this.communicationService
       .getRooms(this.selectedHotel.hotelnb)
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
         this.selectedRoom = this.rooms[0];
-      });
+      }); */
   }
 
   private refresh() {
@@ -64,10 +64,12 @@ export class GuestComponent implements OnInit {
   }
 
   public getGuests(): void {
+    /*
     this.communicationService
       .getGuests(this.selectedHotel.hotelnb, this.selectedRoom.roomnb)
-      .subscribe((guests: Room[]) => {
+      .subscribe((guests: any[]) => {
         this.guests = guests;
       });
+      */
   }
 }

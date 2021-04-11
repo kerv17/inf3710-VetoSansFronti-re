@@ -25,8 +25,8 @@ export class DatabaseService {
   client = new pg.Client({
     user:'postgres',
     host: 'localhost',
-    database: 'Veto',
-    password: 'Willywhale1',
+    database: 'name',
+    password: 'password',
     port: 5432,
   })
 

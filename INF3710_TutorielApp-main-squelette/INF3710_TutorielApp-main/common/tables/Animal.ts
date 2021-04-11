@@ -1,6 +1,6 @@
 export interface Animal {
    
-    noAnimal:string
+    noAnimal:string;
     noClinique: number;
     noProprietaire: number;
     nom: string;

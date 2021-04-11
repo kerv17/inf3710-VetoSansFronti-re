@@ -83,6 +83,7 @@ class SqlConnect {
             });
         });
     }
+
     getOneAnimal(info) {
         return __awaiter(this, void 0, void 0, function* () {
             //do a string split to split the values of animal name and number of clinique and owner no hopefully

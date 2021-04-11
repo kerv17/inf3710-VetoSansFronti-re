@@ -107,7 +107,7 @@ export class DatabaseController {
       "/animals/insert",
       (req: Request, res: Response, _: NextFunction) => {
        const animal=req.body;
-
+      console.log(animal);
         this.databaseService
           .addAnimal(animal)
           .then(message => {

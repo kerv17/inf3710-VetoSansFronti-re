@@ -4,8 +4,9 @@ import "reflect-metadata";
 import { Room } from "../../../common/tables/Room";
 import { Hotel } from "../../../common/tables/Hotel";
 import { Animal } from "../../../common/tables/Animal";
-
-
+import{TraitementEffectue} from "../../../common/tables/TraitementEffectue"
+import{Proprietaire} from "../../../common/tables/proprietaire"
+import {Clinique} from "../../..//common/tables/Clinique"
 
 
 
@@ -44,9 +45,9 @@ export class DatabaseService {
   }
 
   //Get ALL animals
-  async getAllanimals():Promise<Animal[]>{
-    const getQuery = `
-    SELECT * FROM VetoDB.Animal `;
+  async getAllanimals(noClinique:string):Promise<Animal[]>{
+    console.log(noClinique);
+    const getQuery = `SELECT * FROM VetoDB.Animal Where noCLinique= '${noClinique}';` ;
     const client = await this.pool.connect();
     console.log('here');
 
@@ -78,6 +79,7 @@ async getOneAnimal(info:string):Promise<Animal>{
   //do a string split to split the values of animal name and number of clinique and owner no hopefully
   //lets say that the order is nom noProprietaire noClinique
   const client = await this.pool.connect(); 
+  console.log(info);
   const information = info.split(',');
     console.log(information[0])
   const query=`Select * from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
@@ -104,7 +106,7 @@ async addAnimal(animal:Animal):Promise<String>{
   const client = await this.pool.connect();
   const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noanimal+'`'+','+'`'+animal.noclinique+'`'+','+'`'+animal.noproprietaire
   +','+animal.nom+','+animal.type+','+animal.espece+','+animal.taille
-  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.etatactuel+'`'+')';
+  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.dateinscription+'`'+','+'`'+animal.etatactuel+'`'+')';
   
   return client.query(query).then(res  => {
       client.release();
@@ -159,6 +161,92 @@ async modifyAnimalInfo(animal:Animal):Promise<string>{
   });
 
 }
+///========Cliniques===========
+
+
+
+public async getAllCliniques():Promise<Clinique[]>{
+ 
+  const getQuery = `SELECT * FROM VetoDB.Clinique ;` ;
+  const client = await this.pool.connect();
+  console.log('here');
+
+  let cliniques:Clinique[]=new Array(); 
+ 
+  return client.query(getQuery).then(res  => {
+    
+      for (let row of res.rows) {
+         
+          cliniques.push(row);
+          
+      }
+      client.release();
+      return cliniques;
+     
+  }).catch(err=>{
+      
+          console.error(err);
+          client.release();
+          throw new Error();
+  });
+}
+
+
+///========Proprietaires========
+
+public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
+ 
+    const getQuery = `SELECT * FROM VetoDB.ProprietaireAnimal Where noCLinique= '${noClinique}';` ;
+    const client = await this.pool.connect();
+    console.log('here');
+
+    let proprietaires:Proprietaire[]=new Array(); 
+   
+    return client.query(getQuery).then(res  => {
+      
+        for (let row of res.rows) {
+           
+            proprietaires.push(row);
+            
+        }
+        client.release();
+        return proprietaires;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            client.release();
+            throw new Error();
+    });
+}
+
+
+///========Examen========== 
+   public async getAllTraitements(info:string):Promise<TraitementEffectue[]>{
+    const client = await this.pool.connect();
+    const traitements:TraitementEffectue[]=new Array();
+    const information = info.split(',');
+
+    const query=`Select * from
+                  VetoDb.traitementeffectue
+                  WHERE noExamen='${information[0]}'
+                  and noClinique ='${information[1]}';`;
+  return client.query(query).then((res)  => {
+      client.release();
+      for (let row of res.rows) {
+           
+        traitements.push(row);
+        
+    }
+      return traitements;
+     
+  }).catch(err=>{
+          client.release();
+          console.error(err);
+          throw new Error();
+  });
+
+   }
 
   // ======= HOTEL =======
   public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {

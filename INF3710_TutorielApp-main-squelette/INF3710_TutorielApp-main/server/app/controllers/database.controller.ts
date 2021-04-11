@@ -21,13 +21,10 @@ export class DatabaseController {
     // ======= HOTEL ROUTES =======
     //http://localhost:3000/database/animals
     // ex http://localhost:3000/database/hotel?hotelNb=3&name=LeGrandHotel&city=laval
-    router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
-    /*  var hotelNb = req.params.hotelNb ? req.params.hotelNb : "";
-      var hotelName = req.params.name ? req.params.name : "";
-      var hotelCity = req.params.city ? req.params.city : "";
-*/  
+    router.get("/animals/:info", (req: Request, res: Response, _: NextFunction) => {
+  
       this.databaseService
-        .getAllanimals().then(animals =>{
+        .getAllanimals(req.params.info).then(animals =>{
 
           res.json(animals);})
         .catch((e: Error) => {
@@ -38,7 +35,7 @@ export class DatabaseController {
 
 
     router.get(
-      "/animals/:info",
+      "/animal/:info",
       (req: Request, res: Response, _: NextFunction) => {
         this.databaseService
           .getOneAnimal(req.params.info)
@@ -54,6 +51,39 @@ export class DatabaseController {
       }
     );
 
+    router.get(
+      "/animal/examen/:info",
+      (req: Request, res: Response, _: NextFunction) => {
+        this.databaseService
+          .getAllTraitements(req.params.info)
+          .then((traitements) => {
+          
+            res.json(traitements);
+          })
+
+          .catch((e: Error) => {
+            console.error(e);
+            res.sendStatus(404);
+          });
+      }
+    );
+
+    router.get(
+      "/traitements/:info",
+      (req: Request, res: Response, _: NextFunction) => {
+        this.databaseService
+          .getOneAnimal(req.params.info)
+          .then((animal) => {
+          
+            res.json(animal);
+          })
+
+          .catch((e: Error) => {
+            console.error(e);
+            res.sendStatus(404);
+          });
+      }
+    );
 
     router.post(
       "/animals/insert",
@@ -107,7 +137,30 @@ export class DatabaseController {
       }
     );
 
+  //===Proprietaire Routes
+  router.get("/proprietaires/:info", (req: Request, res: Response, _: NextFunction) => {
+  
+    this.databaseService
+      .getAllProprietaires(req.params.info).then(proprietaires =>{
 
+        res.json(proprietaires);})
+      .catch((e: Error) => {
+        console.error(e);
+        res.sendStatus(404);
+      });
+  });
+    // =======Clinique Routes =====
+    router.get("/cliniques", (req: Request, res: Response, _: NextFunction) => {
+  
+      this.databaseService
+        .getAllCliniques().then(cliniques =>{
+  
+          res.json(cliniques);})
+        .catch((e: Error) => {
+          console.error(e);
+          res.sendStatus(404);
+        });
+    });
     // ======= ROOMS ROUTES =======
     router.get("/rooms", (req: Request, res: Response, _: NextFunction) => {
       const hotelNb = req.query.hotelNb ? req.query.hotelNb : "";

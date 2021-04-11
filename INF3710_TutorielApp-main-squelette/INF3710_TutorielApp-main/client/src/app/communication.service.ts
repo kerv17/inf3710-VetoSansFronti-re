@@ -84,7 +84,7 @@ export class CommunicationService {
   }
   // ///////////////////////////////////////////////////////////////////////
 
-  
+
 
   private handleError<T>(
     request: string,

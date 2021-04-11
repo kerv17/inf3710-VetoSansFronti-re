@@ -3,9 +3,6 @@ import { Injectable } from "@angular/core";
 // tslint:disable-next-line:ordered-imports
 import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Hotel } from "../../../common/tables/Hotel";
-import { Room } from "../../../common/tables/Room";
-import { HotelPK } from "../../../common/tables/HotelPK";
 import { Clinique } from "../../../common/tables/Clinique";
 import { Animal } from "../../../common/tables/Animal";
 import { Proprietaire } from "../../../common/tables/proprietaire";
@@ -25,15 +22,6 @@ export class CommunicationService {
     this._listners.next(filterBy);
   }
 
-  public getHotels(): Observable<Hotel[]> {
-    return this.http
-      .get<Hotel[]>(this.BASE_URL + "/hotels")
-      .pipe(catchError(this.handleError<Hotel[]>("getHotels")));
-  }
-
-  public getGuests(i:string, j:string): Observable<Hotel[]>{
-    return {} as Observable<Hotel[]>;
-  }
 
 
   // CLINIQUES ///////////////////////////////////////////////////////////

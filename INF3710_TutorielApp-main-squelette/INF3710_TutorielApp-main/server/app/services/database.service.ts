@@ -15,8 +15,8 @@ export class DatabaseService {
   connectionConfig:pg.ConnectionConfig= {
     user:'postgres',
     host: 'localhost',
-    database: 'Veto',
-    password: 'Willywhale1',
+    database: 'postgres',
+    password: 'kervin17',
     port: 5432,
     keepAlive:true,
     
@@ -102,9 +102,9 @@ async getOneAnimal(info:string):Promise<Animal>{
 //Add an animal
 async addAnimal(animal:Animal):Promise<String>{
   const client = await this.pool.connect();
-  const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noAnimal+'`'+','+'`'+animal.noClinique+'`'+','+'`'+animal.noProprietaire
+  const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noanimal+'`'+','+'`'+animal.noclinique+'`'+','+'`'+animal.noproprietaire
   +','+animal.nom+','+animal.type+','+animal.espece+','+animal.taille
-  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.dateNaissance+'`'+','+'`'+animal.dateNaissance+'`'+','+'`'+animal.etatActuel+'`'+')';
+  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.etatactuel+'`'+')';
   
   return client.query(query).then(res  => {
       client.release();
@@ -143,11 +143,11 @@ async addAnimal(animal:Animal):Promise<String>{
 async modifyAnimalInfo(animal:Animal):Promise<string>{
   
   const client = await this.pool.connect();
-  const query=`UPDATE VetoDb.Animal SET noProprietaire= ` +'`'+animal.noProprietaire+'`'
+  const query=`UPDATE VetoDb.Animal SET noProprietaire= ` +'`'+animal.noproprietaire+'`'
   +',nom='+'`'+animal.nom+'`'+',taille'+'`'+animal.taille
   +'`'+',poids='+'`'+animal.poids+'`'+',description='+'`'+animal.description+'`'+',etatActuel'
-  +'`'+animal.etatActuel+'`'+'Where noAnimal='
-  +'`'+animal.noAnimal+'`'+'and noClinique='+'`'+animal.noClinique+'`;'; 
+  +'`'+animal.etatactuel+'`'+'Where noAnimal='
+  +'`'+animal.noanimal+'`'+'and noClinique='+'`'+animal.noclinique+'`;'; 
   return client.query(query).then((res)  => {
     client.release();
       return 'succes';

@@ -2,10 +2,9 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as pg from "pg";
 
-import { Hotel } from "../../../common/tables/Hotel";
-import { HotelPK } from "../../../common/tables/HotelPK";
+
 import { Room } from "../../../common/tables/Room";
-import { Animal } from "../../../common/tables/Animal";
+
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -20,12 +19,13 @@ export class DatabaseController {
     const router: Router = Router();
 
     // ======= HOTEL ROUTES =======
+    //http://localhost:3000/database/animals
     // ex http://localhost:3000/database/hotel?hotelNb=3&name=LeGrandHotel&city=laval
     router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
     /*  var hotelNb = req.params.hotelNb ? req.params.hotelNb : "";
       var hotelName = req.params.name ? req.params.name : "";
       var hotelCity = req.params.city ? req.params.city : "";
-*/
+*/  
       this.databaseService
         .getAllanimals().then(animals =>{
 

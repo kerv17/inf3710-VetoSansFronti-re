@@ -4,54 +4,36 @@ import "reflect-metadata";
 import { Room } from "../../../common/tables/Room";
 import { Hotel } from "../../../common/tables/Hotel";
 import { Animal } from "../../../common/tables/Animal";
-import * as readline from 'readline';
 
 
-let connectionConfig:pg.ConnectionConfig;
+
+
 
 @injectable()
 export class DatabaseService {
- /* public connectionConfig: pg.ConnectionConfig = {
-    user: "postgres",
-    database: "hoteldb",
-    password: "admin",
+  //Entrer vos informations
+  connectionConfig:pg.ConnectionConfig= {
+    user:'postgres',
+    host: 'localhost',
+    database: 'Veto',
+    password: 'Willywhale1',
     port: 5432,
-    host: "127.0.0.1",
-    keepAlive: true
-  };*/
-  
-  constructor(){ const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+    keepAlive:true,
+    
+    
+  };
+  client = new pg.Client({
+    user:'postgres',
+    host: 'localhost',
+    database: 'Veto',
+    password: 'Willywhale1',
+    port: 5432,
+  })
 
-rl.question("What is the name of your database ? ", function(name) {
-            
-          
-  rl.question("What is the password for the database ? ", function(password) {
-       connectionConfig = {
-          user: 'postgres',
-          host: 'localhost',
-          database: name,
-          password: password,
-          port: 5432,
-          keepAlive: true
-      };
-     rl.close()
-  });
+
+ private pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
  
-
-});
-
-
-}
-
-
- 
-
-  public pool: pg.Pool = new pg.Pool(connectionConfig);
-
   // ======= DEBUG =======
   public async getAllFromTable(tableName: string): Promise<pg.QueryResult> {
     
@@ -66,8 +48,10 @@ rl.question("What is the name of your database ? ", function(name) {
     const getQuery = `
     SELECT * FROM VetoDB.Animal `;
     const client = await this.pool.connect();
+    console.log('here');
+
     let animals:Animal[]=new Array(); 
-   console.log('here');
+   
     return client.query(getQuery).then(res  => {
       
         for (let row of res.rows) {
@@ -321,7 +305,7 @@ async modifyAnimalInfo(animal:Animal):Promise<string>{
     return res;
   }
 
-
+  /*
   // ======= GUEST =======
   public async createGuest(guest: Guest): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
@@ -383,4 +367,5 @@ async modifyAnimalInfo(animal:Animal):Promise<string>{
     client.release()
     return res;
   }
+  */
 }

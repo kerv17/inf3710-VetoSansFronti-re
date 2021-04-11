@@ -70,7 +70,7 @@
       <tr class="blank_row">
         <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNumber></td>
         <td class="contentCell">
-          <select class="custom-select" id="proprietaireSelect">
+          <select class="custom-select" id="proprietaireSelect" (change)="newOwner($event.target.options.selectedIndex)">
             <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
           </select>
         </td>

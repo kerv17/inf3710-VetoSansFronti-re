@@ -84,6 +84,7 @@ export class AnimalComponent implements OnInit {
   }
 
   public insertAnimal(){
+    console.log(this.nouveauProprietaireIndex);
       const animal:Animal = {
         noclinique: this.noClinique,
         noanimal: this.newAnimalNumber.nativeElement.innerText,
@@ -94,11 +95,10 @@ export class AnimalComponent implements OnInit {
         taille: this.newAnimalTaille.nativeElement.innerText,
         poids: this.newAnimalPoids.nativeElement.innerText,
         description: this.newAnimalDescrpition.nativeElement.innerText,
-        datenaissance: this.newAnimalDateNaissance.nativeElement.innerText,
-        dateinscription: this.newAnimalDateInscription.nativeElement.innerText,
+        datenaissance: new Date(this.newAnimalDateNaissance.nativeElement.innerText),
+        dateinscription: new Date(this.newAnimalDateInscription.nativeElement.innerText),
         etatactuel: this.newAnimalEtat.nativeElement.innerText
       }
-
       this.communicationService.insertAnimal(animal).subscribe((res: number) => {
         this.refresh();
       });

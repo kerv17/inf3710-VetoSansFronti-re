@@ -51,6 +51,24 @@ export class DatabaseController {
       }
     );
 
+
+    router.get(
+      "/animal/name/:info",
+      (req: Request, res: Response, _: NextFunction) => {
+        this.databaseService
+          .getAnimalsFromName(req.params.info)
+          .then((animal) => {
+          
+            res.json(animal);
+          })
+
+          .catch((e: Error) => {
+            console.error(e);
+            res.sendStatus(404);
+          });
+      }
+    );
+
     router.get(
       "/animal/examen/:info",
       (req: Request, res: Response, _: NextFunction) => {

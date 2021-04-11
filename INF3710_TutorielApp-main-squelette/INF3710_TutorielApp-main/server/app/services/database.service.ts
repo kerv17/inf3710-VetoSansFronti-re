@@ -72,10 +72,9 @@ export class DatabaseService {
 async getOneAnimal(info:string):Promise<Animal>{
   //do a string split to split the values of animal name and number of clinique and owner no hopefully
   //lets say that the order is nom noProprietaire noClinique
-  const client = await this.pool.connect(); 
-  console.log(info);
+  const client = await this.pool.connect();   console.log(info);
   const information = info.split(',');
-    console.log(information[0])
+  
   const query=`Select * from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
    console.log(query);
     return client.query(query).then((res)  => {
@@ -93,6 +92,32 @@ async getOneAnimal(info:string):Promise<Animal>{
         
     });
 
+}
+
+//Get animlals from name
+async getAnimalsFromName(info:string):Promise<Animal[]>{
+  const client = await this.pool.connect(); 
+  const information = info.split(',');
+  const query=`Select * from VetoDb.animal Where nom LIKE'%${information[0]}%'
+  and noClinique = '${information[1]}';`
+  let animals:Animal[]=new Array(); 
+   
+    return client.query(query).then(res  => {
+      
+        for (let row of res.rows) {
+           
+            animals.push(row);
+            
+        }
+        client.release();
+        return animals;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            client.release();
+            throw new Error();
+    });
 }
 
 //Add an animal

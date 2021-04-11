@@ -17,19 +17,13 @@ export class DatabaseService {
     user:'postgres',
     host: 'localhost',
     database: 'Veto',
-    password: 'Willywhale1',
+    password: 'password',
     port: 5432,
     keepAlive:true,
     
     
   };
-  client = new pg.Client({
-    user:'postgres',
-    host: 'localhost',
-    database: 'name',
-    password: 'password',
-    port: 5432,
-  })
+ 
 
 
  private pool: pg.Pool = new pg.Pool(this.connectionConfig);
@@ -229,7 +223,10 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
 
     const query=`Select * from
                   VetoDb.traitementeffectue
-                  WHERE noExamen='${information[0]}'
+                  WHERE noExamen in (Select * 
+                    From   VetoDb.Examen 
+                    Where noAnimal'${information[0]}'
+                    and noClinique ='${information[1]}' )
                   and noClinique ='${information[1]}';`;
   return client.query(query).then((res)  => {
       client.release();

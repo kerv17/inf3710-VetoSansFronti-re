@@ -8,7 +8,8 @@
       <div class="input-group-prepend">
         <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       </div>
-      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex)">
+      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose a clinique</option>
         <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
       </select>
     </div>
@@ -42,10 +43,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let animal of animaux; let i = index">
-        <td class="contentCell">{{ animal.noanimal }}</td>
+        <td class="contentCell">{{ animal.noclinique}} - {{ animal.noanimal }}</td>
         <td class="contentCell">
           <select class="custom-select" id="proprietaireSelect" (change)="updateOwner(i, $event.target.options.selectedIndex)">
-            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.nom }}</option>
+            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
           </select>
         </td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalName($event, i)">{{ animal.nom }}</td>
@@ -70,7 +71,7 @@
         <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNumber></td>
         <td class="contentCell">
           <select class="custom-select" id="proprietaireSelect">
-            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.nom }}</option>
+            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
           </select>
         </td>
         <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNom></td>

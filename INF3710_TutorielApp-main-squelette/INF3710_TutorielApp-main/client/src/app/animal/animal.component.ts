@@ -22,6 +22,8 @@ export class AnimalComponent implements OnInit {
   @ViewChild("newAnimalDateInscription") newAnimalDateInscription: ElementRef;
   @ViewChild("newAnimalEtat") newAnimalEtat: ElementRef;
 
+  @ViewChild("noCliniqueSelector") noCliniqueSelector: ElementRef;
+
   public animaux: Animal[] = [];
   public cliniques: Clinique[] = [];
   public proprietaires: Proprietaire[] = [];
@@ -32,6 +34,8 @@ export class AnimalComponent implements OnInit {
   constructor(private communicationService: CommunicationService) { }
   
   ngOnInit() {
+      this.getCliniques();
+      this.noClinique = this.cliniques[0].noclinique;
       this.refresh();
   }
   noClinique = '';
@@ -58,7 +62,7 @@ export class AnimalComponent implements OnInit {
   }
 
   public getProprietaires(): void {
-    this.communicationService.getProprietaires().subscribe((proprietaires: Proprietaire[]) =>{
+    this.communicationService.getProprietaires(this.noClinique).subscribe((proprietaires: Proprietaire[]) =>{
       this.proprietaires = proprietaires;
     })
   }
@@ -71,7 +75,6 @@ export class AnimalComponent implements OnInit {
 
   public refresh(){
     this.getAnimaux(this.noClinique);
-    this.getCliniques();
     this.getProprietaires();
   }
 

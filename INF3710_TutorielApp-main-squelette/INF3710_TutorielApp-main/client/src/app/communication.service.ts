@@ -77,9 +77,9 @@ export class CommunicationService {
   // ///////////////////////////////////////////////////////////////////////
 
   // PROPRIETAIRES /////////////////////////////////////////////////////////
-  public getProprietaires(): Observable<Proprietaire[]> {
+  public getProprietaires(noClinique:string): Observable<Proprietaire[]> {
     return this.http
-      .get<Proprietaire[]>(this.BASE_URL + "/proprietaires")
+      .get<Proprietaire[]>(this.BASE_URL + "/proprietaires/" + noClinique)
       .pipe(catchError(this.handleError<Proprietaire[]>("getProprietaires")));
   }
   // ///////////////////////////////////////////////////////////////////////

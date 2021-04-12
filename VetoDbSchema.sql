@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.examen(
 );
 
 CREATE TABLE IF NOT EXISTS VetoDB.Facture(
-	noFacture  VARCHAR(10)  NOT NULL,
+	noFacture  Serial NOT NULL ,
 	noExamen  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10) NOT NULL,
 	moyenPaiement VARCHAR(10)  NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Facture(
 );
 
 CREATE TABLE IF NOT EXISTS VetoDB.TraitementEffectue(
-	noFacture  VARCHAR(10) ,
+	
 	noExamen  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10) NOT NULL,
 	noTraitement VARCHAR(10) NOT NULL,
@@ -137,6 +137,6 @@ CREATE TABLE IF NOT EXISTS VetoDB.TraitementEffectue(
 	
 	PRIMARY KEY (noTraitement,noExamen,noClinique),
 	Foreign Key  (noExamen,noClinique) REFERENCES Examen(noExamen,noClinique) ON DELETE RESTRICT ON UPDATE CASCADE,
-	Foreign Key  (noTraitement) REFERENCES Traitement(noTraitement) ON DELETE RESTRICT ON UPDATE CASCADE,
-	Foreign Key  (noFacture) REFERENCES Facture(noFacture) ON DELETE RESTRICT ON UPDATE CASCADE
+	Foreign Key  (noTraitement) REFERENCES Traitement(noTraitement) ON DELETE RESTRICT ON UPDATE CASCADE
+	
 );

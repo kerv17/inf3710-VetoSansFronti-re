@@ -1,5 +1,5 @@
 export interface TraitementEffectue {
-nofacture:string;
+
 noexamen:string;
 noclinique:string;
 notraitement:string;

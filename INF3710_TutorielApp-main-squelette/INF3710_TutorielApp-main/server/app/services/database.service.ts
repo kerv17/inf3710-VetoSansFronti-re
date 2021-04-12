@@ -242,13 +242,15 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
     const traitements:TraitementEffectue[]=new Array();
     const information = info.split(',');
 
-    const query=`Select * from
-                  VetoDb.traitementeffectue
-                  WHERE noExamen in (Select * 
+    const query=`Select A.* ,description from
+                  VetoDb.traitementeffectue A
+                  NATURAL JOIN VetoDB.traitement
+                  WHERE noExamen in (Select noExamen 
                     From   VetoDb.Examen 
-                    Where noAnimal'${information[0]}'
+                    Where noAnimal ='${information[0]}'
                     and noClinique ='${information[1]}' )
-                  and noClinique ='${information[1]}';`;
+                  and noClinique ='${information[1]}'
+                  `;
   return client.query(query).then((res)  => {
       client.release();
       for (let row of res.rows) {

@@ -6,6 +6,7 @@ notraitement:string;
 quantitetraitement:string;
 datedebut:Date;
 datefin:Date;
+description:string;
 
 
 }

@@ -40,14 +40,7 @@ export class AnimalComponent implements OnInit {
   }
   noClinique = '';
 
-  createFakeDb(){
-    for( let i = 0; i < 5; i++){
-      this.proprietaires.push({nom: this.noms[i]} as Proprietaire)
-    }
-    for( let i = 0; i < 5; i++){
-      this.animaux.push({nom: i.toString()} as Animal)
-    }
-  }
+  
 
   public getAnimaux(noClinique:string): void {
     this.communicationService.getAnimaux(noClinique).subscribe((animaux: Animal[]) =>{

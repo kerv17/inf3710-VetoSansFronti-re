@@ -281,6 +281,15 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
     return res;
   }
 
+//====Facture=======
+
+//Crer facture
+public async creerFacture():Promise<void>{
+const subquery='Count * from VetoDb.facture + 1 '
+const query=`Insert into VetoDb.facture Values(${subquery},Count(*) From Vetodb.traitementeffectue Where noFacture=null,)`;
+}
+
+
 
   // get hotels that correspond to certain caracteristics
   public async filterHotels(hotelNb: string, hotelName: string, city: string): Promise<pg.QueryResult> {

@@ -7,6 +7,7 @@ import { Animal } from "../../../common/tables/Animal";
 import{TraitementEffectue} from "../../../common/tables/TraitementEffectue"
 import{Proprietaire} from "../../../common/tables/proprietaire"
 import {Clinique} from "../../../common/tables/Clinique"
+import {Facture} from "../../../common/tables/facture"
 import * as fs from 'fs';
 
 
@@ -294,6 +295,60 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
 
    }
 
+   
+//====Facture=======
+
+//Crer facture
+public async creerFacture(info:string,paiment:string):Promise<Facture>{
+  const information = info.split(',');
+  const paiementInfo = paiment.split(',');
+
+const date=new Date();
+const sqlDate= `'${date.getFullYear()}-${date.getMonth()}-${date.getDate()}'`;
+let facture:Facture={} as Facture;
+facture.traitements =new Array();
+
+const traitementQuery=` Select * From Vetodb.traitementeffectue 
+Where noExamen='${information[1]}' and noClinique ='${information[0]}'`;
+
+const query=`Insert into VetoDb.facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) 
+Values('${information[1]}','${information[0]}','${paiementInfo[0]}',${sqlDate}, (Select Sum(cout) from Vetodb.traitement
+where noTraitement =( Select noTraitement From Vetodb.traitementeffectue 
+Where noExamen='${information[1]}' and noClinique ='${information[0]}')),${paiementInfo[1]}) Returning *;`;
+
+
+
+const client = await this.pool.connect();
+return client.query(traitementQuery).then((traitements)=>{ 
+  
+  
+  for (let row of traitements.rows) {
+           
+    facture.traitements.push(row);
+    
+  }
+
+ return client.query(query).then((res)  => {
+  client.release();
+  
+  facture=res.rows[0];
+  facture.traitements=traitements.rows[0];
+  
+  return facture;
+   
+}).catch(err=>{
+        client.release();
+        console.error(err);
+        throw new Error();
+});
+
+
+}).catch(err=>{ 
+  client.release();
+  console.error(err);
+  throw new Error();});
+
+}
   // ======= HOTEL =======
   public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
@@ -308,6 +363,8 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
     client.release()
     return res;
   }
+
+
 
 
   // get hotels that correspond to certain caracteristics

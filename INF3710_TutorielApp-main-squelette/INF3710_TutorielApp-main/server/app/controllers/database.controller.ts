@@ -166,6 +166,24 @@ export class DatabaseController {
           });
       }
     );
+  //=====Facture====== routes
+
+  router.get(
+    "/facture/:info/:paiement",
+    (req: Request, res: Response, _: NextFunction) => {
+      this.databaseService
+        .creerFacture(req.params.info,req.params.paiement)
+        .then((facture) => {
+        
+          res.send(facture);
+        })
+
+        .catch((e: Error) => {
+          console.error(e);
+          res.sendStatus(404);
+        });
+    }
+  );
 
   //===Proprietaire Routes
   router.get("/proprietaires/:info", (req: Request, res: Response, _: NextFunction) => {

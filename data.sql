@@ -32,10 +32,14 @@ INSERT INTO VetoDB.Examen VALUES('2','1','1','2010-12-11','05:00','1','Routine T
 INSERT INTO VetoDb.Traitement VALUES('1','Examen','120');
 INSERT INTO VetoDb.Traitement VALUES('2','Advil','30');
 
-INSERT INTO VetoDb.Facture VALUES('1','1','1','carte','2011-02-03',150,true);
-
-INSERT INTO VetoDb.traitementeffectue VALUES('1','1','1','2','2','2011-02-03','2011-05-03');
-INSERT INTO VetoDb.traitementeffectue VALUES(null,'2','1','2','1','2011-02-04','2011-05-03');
-INSERT INTO VetoDb.traitementeffectue VALUES(null,'2','1','1','1','2011-02-04','2011-05-03');
+ALTER SEQUENCE VetoDb.Facture_nofacture_seq RESTART WITH 1;
+INSERT INTO VetoDb.Facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) VALUES('1','1','carte','2011-02-03',150,true);
+INSERT INTO VetoDb.Facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) VALUES('1','1','carte','2011-02-03',150,true);
 
 
+INSERT INTO VetoDb.traitementeffectue VALUES('1','1','2','2','2011-02-03','2011-05-03');
+INSERT INTO VetoDb.traitementeffectue VALUES('2','1','2','1','2011-02-04','2011-05-03');
+INSERT INTO VetoDb.traitementeffectue VALUES('2','1','1','1','2011-02-04','2011-05-03');
+
+ 
+ Select * from VetoDb.Facture;

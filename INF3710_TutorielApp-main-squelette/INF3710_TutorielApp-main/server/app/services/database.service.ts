@@ -6,27 +6,23 @@ import { Hotel } from "../../../common/tables/Hotel";
 import { Animal } from "../../../common/tables/Animal";
 import{TraitementEffectue} from "../../../common/tables/TraitementEffectue"
 import{Proprietaire} from "../../../common/tables/proprietaire"
-import {Clinique} from "../../..//common/tables/Clinique"
+import {Clinique} from "../../../common/tables/Clinique"
+import * as fs from 'fs';
 
 
 
 @injectable()
 export class DatabaseService {
   //Entrer vos informations
-  connectionConfig:pg.ConnectionConfig= {
-    user:'postgres',
-    host: 'localhost',
-    database: 'Veto',
-    password: 'password',
-    port: 5432,
-    keepAlive:true,
-    
-    
-  };
+  connectionConfig:pg.ConnectionConfig;
+  private pool: pg.Pool ;
  
+  constructor(){
+    this.connectionConfig=JSON.parse(fs.readFileSync('../../information.json', 'utf-8')); 
+    this.pool= new pg.Pool(this.connectionConfig);
+  }
 
 
- private pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
  
   // ======= DEBUG =======
@@ -123,9 +119,9 @@ async getAnimalsFromName(info:string):Promise<Animal[]>{
 //Add an animal
 async addAnimal(animal:Animal):Promise<String>{
   const client = await this.pool.connect();
-  const query=`Insert Into VetoDb.animal VALUES (`+'`'+animal.noanimal+'`'+','+'`'+animal.noclinique+'`'+','+'`'+animal.noproprietaire
-  +','+animal.nom+','+animal.type+','+animal.espece+','+animal.taille
-  +'`'+','+'`'+animal.poids+'`'+','+'`'+animal.description+'`'+','+'`'+animal.datenaissance+'`'+','+'`'+animal.dateinscription+'`'+','+'`'+animal.etatactuel+'`'+')';
+  const query=`Insert Into VetoDb.animal VALUES ('${animal.noanimal}','${animal.noclinique}','${animal.noproprietaire}','${animal.nom}','${animal.type}',
+  '${animal.espece}',${animal.taille},${animal.poids},'${animal.description}','${animal.datenaissance}','${animal.dateinscription}','${animal.etatactuel}');`
+  
   
   return client.query(query).then(res  => {
       client.release();
@@ -147,7 +143,8 @@ async addAnimal(animal:Animal):Promise<String>{
   async deleteAnimal(info:string):Promise<string>{
     const client = await this.pool.connect();
     const information = info.split(',');
-    const query=`DELETE from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
+    const query=`DELETE from VetoDb.Animal WHERE noanimal='`+information[0]+`' and noclinique='`+information[1]+`';`;
+    console.log(query);
     return client.query(query).then((res)  => {
             client.release();
             return 'succes';
@@ -164,11 +161,10 @@ async addAnimal(animal:Animal):Promise<String>{
 async modifyAnimalInfo(animal:Animal):Promise<string>{
   
   const client = await this.pool.connect();
-  const query=`UPDATE VetoDb.Animal SET noProprietaire= ` +'`'+animal.noproprietaire+'`'
-  +',nom='+'`'+animal.nom+'`'+',taille'+'`'+animal.taille
-  +'`'+',poids='+'`'+animal.poids+'`'+',description='+'`'+animal.description+'`'+',etatActuel'
-  +'`'+animal.etatactuel+'`'+'Where noAnimal='
-  +'`'+animal.noanimal+'`'+'and noClinique='+'`'+animal.noclinique+'`;'; 
+  const query=`UPDATE VetoDb.Animal SET noProprietaire='${animal.noproprietaire}',nom='${animal.nom}',noProprietaire='${animal.noproprietaire}',type='${animal.type}',espece='${animal.espece}',poids=${animal.poids},
+  taille=${animal.taille},description='${animal.description}',datenaissance='${animal.datenaissance}',dateinscription='${animal.dateinscription}',etatActuel='${animal.etatactuel}'
+  where noAnimal='${animal.noanimal}'
+  and noClinique='${animal.noclinique}';`
   return client.query(query).then((res)  => {
     client.release();
       return 'succes';

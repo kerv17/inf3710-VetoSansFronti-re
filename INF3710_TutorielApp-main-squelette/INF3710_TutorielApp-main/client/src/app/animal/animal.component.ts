@@ -32,7 +32,7 @@ export class AnimalComponent implements OnInit {
 
   public duplicateError: boolean =false;
   constructor(private communicationService: CommunicationService) { }
-  
+
   ngOnInit() {
       this.getCliniques();
       this.noClinique = this.cliniques[0].noclinique;
@@ -84,7 +84,7 @@ export class AnimalComponent implements OnInit {
   }
 
   public insertAnimal(){
-    console.log(this.nouveauProprietaireIndex);
+
       const animal:Animal = {
         noclinique: this.noClinique,
         noanimal: this.newAnimalNumber.nativeElement.innerText,
@@ -95,15 +95,16 @@ export class AnimalComponent implements OnInit {
         taille: this.newAnimalTaille.nativeElement.innerText,
         poids: this.newAnimalPoids.nativeElement.innerText,
         description: this.newAnimalDescrpition.nativeElement.innerText,
-        datenaissance: new Date(this.newAnimalDateNaissance.nativeElement.innerText),
-        dateinscription: new Date(this.newAnimalDateInscription.nativeElement.innerText),
+        datenaissance: this.newAnimalDateNaissance.nativeElement.innerText,
+        dateinscription: this.newAnimalDateInscription.nativeElement.innerText,
         etatactuel: this.newAnimalEtat.nativeElement.innerText
       }
+      console.log(animal);
       this.communicationService.insertAnimal(animal).subscribe((res: number) => {
         this.refresh();
       });
   }
-  
+
   nouveauProprietaireIndex: number;
   public newOwner(i:number){
     this.nouveauProprietaireIndex = i;

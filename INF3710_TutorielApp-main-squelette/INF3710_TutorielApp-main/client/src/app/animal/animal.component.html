@@ -9,9 +9,15 @@
         <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       </div>
       <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose a clinique</option>
+        <option disabled>Choose Clinique</option>
         <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
       </select>
+    </div>
+  </div>
+
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <input class="search" (change)="getAnimauxLike($event.target.value)" #search>
     </div>
   </div>
 
@@ -46,7 +52,7 @@
         <td class="contentCell">{{ animal.noclinique}} - {{ animal.noanimal }}</td>
         <td class="contentCell">
           <select class="custom-select" id="proprietaireSelect" (change)="updateOwner(i, $event.target.options.selectedIndex - 1)">
-            <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
+            <option *ngFor="let proprietaire of proprietaires" >{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
           </select>
         </td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalName($event, i)">{{ animal.nom }}</td>

@@ -35,6 +35,32 @@ export class DatabaseService {
   }
 
   //Get ALL animals
+  async getAllanimaux():Promise<Animal[]>{
+    console.log('ALL');
+    const getQuery = `SELECT * FROM VetoDB.Animal;` ;
+    const client = await this.pool.connect();
+    console.log('here');
+
+    let animals:Animal[]=new Array(); 
+   
+    return client.query(getQuery).then(res  => {
+      
+        for (let row of res.rows) {
+           
+            animals.push(row);
+            
+        }
+        client.release();
+        return animals;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            client.release();
+            throw new Error();
+    });
+  
+}
   async getAllanimals(noClinique:string):Promise<Animal[]>{
     console.log(noClinique);
     const getQuery = `SELECT * FROM VetoDB.Animal Where noCLinique= '${noClinique}';` ;
@@ -94,7 +120,7 @@ async getOneAnimal(info:string):Promise<Animal>{
 async getAnimalsFromName(info:string):Promise<Animal[]>{
   const client = await this.pool.connect(); 
   const information = info.split(',');
-  const query=`Select * from VetoDb.animal Where nom LIKE'%${information[0]}%'
+  const query=`Select * from VetoDb.animal Where LOWER(nom) LIKE '%${information[0].toLowerCase()}%'
   and noClinique = '${information[1]}';`
   let animals:Animal[]=new Array(); 
    

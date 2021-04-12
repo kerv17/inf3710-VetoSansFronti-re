@@ -8,14 +8,14 @@
       <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
         <option disabled>Choose a clinique</option>
-        <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
+        <option *ngFor="let clinique of cliniques">{{clinique.noclinique}} - {{ clinique.nom }}</option>
       </select>
     </div>
     <div>
       <label class="input-group-text" for="cliniqueSelect">Animal</label>
       <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
         <option disabled>Choose an Animal</option>
-        <option *ngFor="let animal of animaux">{{ animal.nom }}</option>
+        <option *ngFor="let animal of animaux">{{ animal.noanimal }} - {{ animal.nom }}</option>
       </select>
     </div>
     </div>

@@ -45,6 +45,13 @@ export class CommunicationService {
   // //////////////////////////////////////////////////////////////////////
 
   // Animaux //////////////////////////////////////////////////////////////
+  public getAllAnimaux(): Observable<Animal[]>{
+    return this.http
+      .get<Animal[]>(this.BASE_URL + "/animals")
+      .pipe(catchError(this.handleError<Animal[]>("getAnimaux")));
+  }
+
+
   public getAnimaux(cliniqueNb:string): Observable<Animal[]> {
     return this.http
       .get<Animal[]>(this.BASE_URL + "/animals/" + cliniqueNb)
@@ -55,6 +62,12 @@ export class CommunicationService {
     return this.http
       .get<Animal>(this.BASE_URL + "/animals/" + noAnimal + "," + cliniqueNb)
       .pipe(catchError(this.handleError<Animal>("getAnimal")));
+  }
+
+  public getAnimals(like:string, noClinique:string): Observable<Animal[]> {
+    return this.http
+      .get<Animal[]>(this.BASE_URL + `/animal/name/${like},${noClinique}` )
+      .pipe(catchError(this.handleError<Animal[]>("getAnimals")));
   }
 
   public updateAnimal(animal: Animal): Observable<number> {

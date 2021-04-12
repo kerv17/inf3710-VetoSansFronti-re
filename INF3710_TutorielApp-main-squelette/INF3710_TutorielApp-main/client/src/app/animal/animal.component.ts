@@ -21,7 +21,7 @@ export class AnimalComponent implements OnInit {
   @ViewChild("newAnimalDescrpition") newAnimalDescrpition: ElementRef;
   @ViewChild("newAnimalDateInscription") newAnimalDateInscription: ElementRef;
   @ViewChild("newAnimalEtat") newAnimalEtat: ElementRef;
-
+  @ViewChild("search") search :ElementRef;
   @ViewChild("noCliniqueSelector") noCliniqueSelector: ElementRef;
 
   public animaux: Animal[] = [];
@@ -31,7 +31,8 @@ export class AnimalComponent implements OnInit {
   noms = ['tom','jerry','al','bob','thomas']
 
   public duplicateError: boolean =false;
-  constructor(private communicationService: CommunicationService) { }
+  constructor(private communicationService: CommunicationService) { 
+  }
 
   ngOnInit() {
       this.getCliniques();
@@ -43,7 +44,20 @@ export class AnimalComponent implements OnInit {
   
 
   public getAnimaux(noClinique:string): void {
-    this.communicationService.getAnimaux(noClinique).subscribe((animaux: Animal[]) =>{
+    if (noClinique != undefined){
+      this.communicationService.getAnimaux(noClinique).subscribe((animaux: Animal[]) =>{
+        this.animaux = animaux;
+      })
+    }
+    else{
+      this.communicationService.getAllAnimaux().subscribe((animaux: Animal[]) =>{
+        this.animaux = animaux;
+      })
+    }
+  }
+
+  public getAnimauxLike(like:string): void {
+    this.communicationService.getAnimals(like,this.noClinique).subscribe((animaux: Animal[]) =>{
       this.animaux = animaux;
     })
   }
@@ -64,6 +78,7 @@ export class AnimalComponent implements OnInit {
   public updateSelectedClinique(index: number): void {
       this.noClinique = this.cliniques[index].noclinique;
       this.refresh();
+      this.search.nativeElement.value = '';
   }
 
   public refresh(){

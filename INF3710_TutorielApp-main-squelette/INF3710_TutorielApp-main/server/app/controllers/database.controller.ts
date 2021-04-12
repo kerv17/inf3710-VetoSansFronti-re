@@ -33,6 +33,18 @@ export class DatabaseController {
         });
     });
 
+    router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
+  
+      this.databaseService
+        .getAllanimaux().then(animals =>{
+
+          res.json(animals);})
+        .catch((e: Error) => {
+          console.error(e);
+          res.sendStatus(404);
+        });
+    });
+
 
     router.get(
       "/animal/:info",

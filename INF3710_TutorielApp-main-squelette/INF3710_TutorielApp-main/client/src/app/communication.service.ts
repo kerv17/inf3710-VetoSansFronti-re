@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-// tslint:disable-next-line:ordered-imports
 import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Clinique } from "../../../common/tables/Clinique";
 import { Animal } from "../../../common/tables/Animal";
 import { Proprietaire } from "../../../common/tables/proprietaire";
+import { TraitementEffectue } from "../../../common/tables/TraitementEffectue";
 
 @Injectable()
 export class CommunicationService {
@@ -85,7 +85,12 @@ export class CommunicationService {
   }
   // ///////////////////////////////////////////////////////////////////////
 
-
+  // TRAITEMENTS ///////////////////////////////////////////////////////////
+  public getTraitements(noClinique:string, noAnimal:string):Observable<TraitementEffectue[]>{
+    return this.http
+      .get<TraitementEffectue[]>(this.BASE_URL + `/animal/examen/${noAnimal},${noClinique}` )
+      .pipe(catchError(this.handleError<TraitementEffectue[]>("getTraitements")));
+  }
 
   private handleError<T>(
     request: string,

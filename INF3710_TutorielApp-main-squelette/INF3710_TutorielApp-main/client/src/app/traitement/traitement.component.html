@@ -1,7 +1,25 @@
 <div id="room">
-  <h1>Animals</h1>
+  <h1>Treatments</h1>
+  
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
 
-  <div class="divider"></div>
+      <div>
+      <label class="input-group-text" for="cliniqueSelect">Clinique</label>
+      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose a clinique</option>
+        <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
+      </select>
+    </div>
+    <div>
+      <label class="input-group-text" for="cliniqueSelect">Animal</label>
+      <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose an Animal</option>
+        <option *ngFor="let animal of animaux">{{ animal.nom }}</option>
+      </select>
+    </div>
+    </div>
+  </div>
 
 
   <table
@@ -11,6 +29,7 @@
     width="1000"
     class="table-striped table-hover"
   >
+
     <thead class="roomsheader">
       <th class="contentCell">Exam number</th>
       <th class="contentCell">Treatment number</th>
@@ -24,10 +43,10 @@
       <tr *ngFor="let traitement of traitements; let i = index">
           <td class="contentCell">{{traitement.noexamen}}</td>
           <td class="contentCell">{{traitement.notraitement}}</td>
-          <td class="contentCell">TO BE FILLED LATER</td>
+          <td class="contentCell">{{traitement.description}}</td>
           <td class="contentCell">{{traitement.quantitetraitement}}</td>
-          <td class="contentCell">{{traitement.datedebut}}</td>
-          <td class="contentCell">{{traitement.datefin}}</td>
+          <td class="contentCell">{{traitement.datedebut.substring(0,10)}}</td>
+          <td class="contentCell">{{traitement.datefin.substring(0,10)}}</td>
       </tr>
     </tbody>
   </table>

@@ -45,7 +45,7 @@
       <tr *ngFor="let animal of animaux; let i = index">
         <td class="contentCell">{{ animal.noclinique}} - {{ animal.noanimal }}</td>
         <td class="contentCell">
-          <select class="custom-select" id="proprietaireSelect" (change)="updateOwner(i, $event.target.options.selectedIndex)">
+          <select class="custom-select" id="proprietaireSelect" (change)="updateOwner(i, $event.target.options.selectedIndex - 1)">
             <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
           </select>
         </td>

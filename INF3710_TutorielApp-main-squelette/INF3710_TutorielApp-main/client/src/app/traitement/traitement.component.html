@@ -1,15 +1,26 @@
 <div id="room">
   <h1>Treatments</h1>
+  
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
 
-  <div class="divider"></div>
-  <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-    <option disabled>Choose a clinique</option>
-    <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
-  </select>
-  <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-    <option disabled>Choose a Animal</option>
-    <option *ngFor="let animal of animaux">{{ animal.nom }}</option>
-  </select>
+      <div>
+      <label class="input-group-text" for="cliniqueSelect">Clinique</label>
+      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose a clinique</option>
+        <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
+      </select>
+    </div>
+    <div>
+      <label class="input-group-text" for="cliniqueSelect">Animal</label>
+      <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose an Animal</option>
+        <option *ngFor="let animal of animaux">{{ animal.nom }}</option>
+      </select>
+    </div>
+    </div>
+  </div>
+
 
   <table
     id="ht"

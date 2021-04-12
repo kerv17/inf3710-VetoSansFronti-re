@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { TraitementEffectue } from '../../../../common/tables/TraitementEffectue';
+import { CommunicationService } from "../communication.service";
 
 @Component({
   selector: "app-traitement",
@@ -11,7 +12,10 @@ export class TraitementComponent implements OnInit {
   noClinique: string;
   noAnimal: string;
 
-  public constructor() { }
+  public constructor(private communicationService:CommunicationService) {
+    this.noClinique = '1';
+    this.noAnimal = '1';
+   }
 
   public ngOnInit() {
     this.getTraitements()
@@ -19,6 +23,9 @@ export class TraitementComponent implements OnInit {
 
 
   getTraitements():void {
-      
+    this.communicationService.getTraitements(this.noClinique,this.noAnimal).subscribe((traitements: TraitementEffectue[]) =>{
+      this.traitements = traitements;
+      console.log(traitements);
+    })
   }
 }

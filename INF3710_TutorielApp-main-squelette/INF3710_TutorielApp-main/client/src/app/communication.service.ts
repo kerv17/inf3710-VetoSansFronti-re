@@ -6,6 +6,7 @@ import { Clinique } from "../../../common/tables/Clinique";
 import { Animal } from "../../../common/tables/Animal";
 import { Proprietaire } from "../../../common/tables/proprietaire";
 import { TraitementEffectue } from "../../../common/tables/TraitementEffectue";
+import { Examen } from "../../../common/tables/Examen";
 
 @Injectable()
 export class CommunicationService {
@@ -101,8 +102,14 @@ export class CommunicationService {
   // TRAITEMENTS ///////////////////////////////////////////////////////////
   public getTraitements(noClinique:string, noAnimal:string):Observable<TraitementEffectue[]>{
     return this.http
-      .get<TraitementEffectue[]>(this.BASE_URL + `/animal/examen/${noAnimal},${noClinique}` )
+      .get<TraitementEffectue[]>(this.BASE_URL + `/animal/traitement/${noAnimal},${noClinique}` )
       .pipe(catchError(this.handleError<TraitementEffectue[]>("getTraitements")));
+  }
+
+  public getExamens(noClinique:string, noAnimal:string):Observable<Examen[]>{
+    return this.http
+      .get<Examen[]>(this.BASE_URL + `/animal/examen/${noAnimal},${noClinique}` )
+      .pipe(catchError(this.handleError<Examen[]>("getTraitements")));
   }
 
   private handleError<T>(

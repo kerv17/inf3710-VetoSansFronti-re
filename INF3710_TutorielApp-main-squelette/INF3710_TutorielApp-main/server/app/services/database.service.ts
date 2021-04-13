@@ -7,7 +7,9 @@ import{TraitementEffectue} from "../../../common/tables/TraitementEffectue"
 import{Proprietaire} from "../../../common/tables/proprietaire"
 import {Clinique} from "../../../common/tables/Clinique"
 import {Facture} from "../../../common/tables/facture"
+import {Examen} from "../../../common/tables/Examen"
 import * as fs from 'fs';
+import { Veterinaire } from "../../../common/tables/Veterinaire";
 
 
 
@@ -260,9 +262,36 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
             throw new Error();
     });
 }
+///========Examen==============
+public async getAllExamens(info:string):Promise<Examen[]>{
+  const client = await this.pool.connect();
+  const examens:Examen[]=new Array();
+  const information = info.split(',');
 
+  const query=`Select * 
+              From   VetoDb.Examen 
+              Where noAnimal ='${information[0]}'
+              and noClinique ='${information[1]}'
+                `;
+return client.query(query).then(async (res)  => {
+    client.release();
+    for (let row of res.rows) {
+      const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
+      row.Veterinaire = veterinaire;
+      examens.push(row);
+      
+  }
+    return examens;
+   
+}).catch(err=>{
+        client.release();
+        console.error(err);
+        throw new Error();
+});
 
-///========Examen========== 
+ }
+
+///========TRAITEMENT========== 
    public async getAllTraitements(info:string):Promise<TraitementEffectue[]>{
     const client = await this.pool.connect();
     const traitements:TraitementEffectue[]=new Array();
@@ -390,9 +419,38 @@ return client.query(queryanimal).then(animal=>{
   
 }
 
+private async getVeterinaire(noclinique:string, noveterinaire:string): Promise<Veterinaire> {
+  const client = await this.pool.connect();
+  
+  const query=`Select * 
+              from VetoDb.Veterinaire A NATURAL JOIN VETODB.Employe
+              WHERE A.noemploye='${noveterinaire}' and A.noemploye IN(
+                SELECT noEmploye
+                FROM VetoDb.employe
+                WHERE noclinique = '${noclinique}'
+              );`;
+   //console.log(query);
+    return client.query(query).then((res)  => {
+    //console.log(res);
+    const animal:Veterinaire = res.rows[0] ; 
+        client.release();
+        //console.log(animal);
+        return animal;
+       
+    }).catch(err=>{
+        
+            console.error(err);
+            client.release();
+            throw new Error();
+     
+        
+    });
+}
+
 
 
 
 }
+
 
 

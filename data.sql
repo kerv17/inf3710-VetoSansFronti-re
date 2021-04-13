@@ -34,7 +34,7 @@ INSERT INTO VetoDb.Traitement VALUES('2','Advil','30');
 
 ALTER SEQUENCE VetoDb.Facture_nofacture_seq RESTART WITH 1;
 INSERT INTO VetoDb.Facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) VALUES('1','1','carte','2011-02-03',150,true);
-INSERT INTO VetoDb.Facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) VALUES('1','1','carte','2011-02-03',150,true);
+--INSERT INTO VetoDb.Facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) VALUES('1','1','carte','2011-02-03',150,true);
 
 
 INSERT INTO VetoDb.traitementeffectue VALUES('1','1','2','2','2011-02-03','2011-05-03');

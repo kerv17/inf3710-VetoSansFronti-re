@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Facture(
 	date DATE NOT NULL,
 	coutTotal NUMERIC(7,2) NOT NULL,
 	estPaye BOOLEAN DEFAULT false,
-	
+	Unique(noClinique,noExamen),
 
 	
 	PRIMARY KEY (noFacture),

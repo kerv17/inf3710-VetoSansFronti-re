@@ -275,12 +275,20 @@ public async getAllExamens(info:string):Promise<Examen[]>{
                 `;
 return client.query(query).then(async (res)  => {
     client.release();
+    
     for (let row of res.rows) {
+      let exam:Examen={} as Examen;
       const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
-      row.Veterinaire = veterinaire;
+      if(row.facture != undefined){
+      exam.facture=row.facture;
+      exam.facture=await this.getFacture(row.noclinique,row.noexamen); 
+      exam.facture=await this.ajouterInformationAFacture(exam.facture,row.noclinique,row.noexamen);}
+      exam.Veterinaire = veterinaire;
+      console.log(exam);
       examens.push(row);
       
   }
+  
     return examens;
    
 }).catch(err=>{
@@ -325,8 +333,23 @@ return client.query(query).then(async (res)  => {
 
    
 //====Facture=======
+//Get Facture
+public async getFacture(noClinique:string,noExamen:string):Promise<Facture>{
 
-//Crer facture
+  const client = await this.pool.connect();
+  const query= `Select * from VetoDb.Facture where noCLinique = '${noClinique}' and noExamen='${noExamen}';`;
+  return client.query(query).then((facture)=>{
+    client.release();
+    return facture.rows[0];
+  }).catch(err=>{
+    client.release();
+    console.error(err);
+    throw new Error();
+});;
+}
+
+
+//Creer facture
 public async creerFacture(info:string,paiment:string):Promise<Facture>{
   const information = info.split(',');
   const paiementInfo = paiment.split(',');
@@ -446,7 +469,6 @@ private async getVeterinaire(noclinique:string, noveterinaire:string): Promise<V
         
     });
 }
-
 
 
 

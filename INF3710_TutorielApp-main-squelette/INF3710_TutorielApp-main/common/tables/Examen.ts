@@ -1,3 +1,4 @@
+import { Facture } from "./facture";
 import { Veterinaire } from "./Veterinaire";
 
 export interface Examen {
@@ -9,4 +10,5 @@ export interface Examen {
     noveterinaire:string;
     description:string;
     Veterinaire:Veterinaire;
+    facture:Facture;
 }

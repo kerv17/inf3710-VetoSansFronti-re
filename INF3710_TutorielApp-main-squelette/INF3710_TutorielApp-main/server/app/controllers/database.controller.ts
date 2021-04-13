@@ -82,7 +82,7 @@ export class DatabaseController {
     );
 
     router.get(
-      "/animal/examen/:info",
+      "/animal/traitement/:info",
       (req: Request, res: Response, _: NextFunction) => {
         this.databaseService
           .getAllTraitements(req.params.info)
@@ -97,6 +97,25 @@ export class DatabaseController {
           });
       }
     );
+
+
+    router.get(
+      "/animal/examen/:info",
+      (req: Request, res: Response, _: NextFunction) => {
+        this.databaseService
+          .getAllExamens(req.params.info)
+          .then((examens) => {
+          
+            res.json(examens);
+          })
+
+          .catch((e: Error) => {
+            console.error(e);
+            res.sendStatus(404);
+          });
+      }
+    );
+
 
     router.get(
       "/traitements/:info",

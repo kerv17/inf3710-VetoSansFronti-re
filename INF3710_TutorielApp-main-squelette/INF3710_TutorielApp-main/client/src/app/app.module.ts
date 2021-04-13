@@ -8,6 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CliniqueComponent } from "./clinique/clinique.component";
 import { CommunicationService } from "./communication.service";
+import { FactureComponent } from "./facture/facture.component";
 import { ProprietaireAnimalComponent } from "./proprietaire-animal/proprietaire-animal.component";
 import { TraitementComponent } from "./traitement/traitement.component";
 
@@ -18,6 +19,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
     ProprietaireAnimalComponent,
     AnimalComponent,
     TraitementComponent,
+    FactureComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,54 @@
+<div id="room">
+  <h1>Exams</h1>
+  
+
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+
+      <div>
+      <label class="input-group-text" for="cliniqueSelect">Clinique</label>
+      <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose a clinique</option>
+        <option *ngFor="let clinique of cliniques">{{clinique.noclinique}} - {{ clinique.nom }}</option>
+      </select>
+    </div>
+    <div>
+      <label class="input-group-text" for="cliniqueSelect">Animal</label>
+      <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
+        <option disabled>Choose an Animal</option>
+        <option *ngFor="let animal of animaux">{{ animal.noanimal }} - {{ animal.nom }}</option>
+      </select>
+    </div>
+    </div>
+  </div>
+
+  <table
+    id="ht"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+
+    <thead class="roomsheader">
+      
+      <th class="contentCell">Exam number</th>
+      <th class="contentCell">Veterinaire</th>
+      <th class="contentCell">Date</th>
+      <th class="contentCell">Time</th>
+      <th class="contentCell">description</th>
+      <th class="contentCell">Generate</th>
+      
+    </thead>
+    <tbody>
+      <tr *ngFor="let exam of examens; let i = index">
+          <td class="contentCell">{{exam.noexamen}}</td>
+          <td class="contentCell">{{exam.Veterinaire.noemploye}} - {{exam.Veterinaire.prenom}} {{exam.Veterinaire.nom}}</td>
+          <td class="contentCell">{{exam.dateexamen.substring(0,10)}}</td>
+          <td class="contentCell">{{exam.heureexamen}}</td>
+          <td class="contentCell">{{exam.description}}</td>
+          <td><button>+</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

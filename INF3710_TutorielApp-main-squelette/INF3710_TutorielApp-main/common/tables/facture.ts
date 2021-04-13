@@ -1,5 +1,7 @@
 import {TraitementEffectue}from "./TraitementEffectue"
-
+import {Animal} from './Animal'
+import {Proprietaire} from './Proprietaire'
+import {Veterinaire} from './Veterinaire'
 export interface Facture {
 
     noFacture:number;
@@ -10,6 +12,10 @@ export interface Facture {
     couttotal:number;
     estpaye:boolean;
     traitements:TraitementEffectue[];
+    animal:Animal;
+    proprietaire:Proprietaire;
+    veterinaire:Veterinaire;
+
     
     
     }

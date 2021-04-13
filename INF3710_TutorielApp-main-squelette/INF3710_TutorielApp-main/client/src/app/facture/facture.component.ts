@@ -12,6 +12,7 @@ import { CommunicationService } from "../communication.service";
 })
 export class FactureComponent implements OnInit {
   facture:Facture;
+  displayFacture = false;
   noClinique: string;
   noAnimal: string;
 
@@ -52,8 +53,16 @@ export class FactureComponent implements OnInit {
   getExamens():void {
     this.communicationService.getExamens(this.noClinique,this.noAnimal).subscribe((examens: Examen[]) =>{
       this.examens = examens;
-      console.log(this.examens);
     })
   }
 
+  showFacture(index:number){
+    this.facture = this.examens[index].facture;
+    this.displayFacture = true;
+  }
+
+  hideFacture(index:number){
+    this.facture = this.examens[index].facture;
+    this.displayFacture = false;
+  }
 }

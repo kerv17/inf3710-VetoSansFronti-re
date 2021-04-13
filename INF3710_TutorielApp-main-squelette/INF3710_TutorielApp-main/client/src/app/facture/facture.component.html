@@ -23,7 +23,7 @@
   </div>
 
   <table
-    id="ht"
+    id="exam"
     align="center"
     border="1"
     width="1000"
@@ -37,7 +37,7 @@
       <th class="contentCell">Date</th>
       <th class="contentCell">Time</th>
       <th class="contentCell">description</th>
-      <th class="contentCell">Generate</th>
+      <th class="contentCell">Generate/View</th>
       
     </thead>
     <tbody>
@@ -47,8 +47,73 @@
           <td class="contentCell">{{exam.dateexamen.substring(0,10)}}</td>
           <td class="contentCell">{{exam.heureexamen}}</td>
           <td class="contentCell">{{exam.description}}</td>
-          <td><button>+</button></td>
+          <td class="contentCell">
+            <button *ngIf="examens[i].facture ==undefined">Generate</button>
+            <button *ngIf="examens[i].facture !=undefined && (!displayFacture || facture != examens[i].facture)"(click)="showFacture(i)">View</button>
+            <button *ngIf="examens[i].facture !=undefined && facture == examens[i].facture && displayFacture"(click)="hideFacture(i)">Hide</button>
+          </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf='displayFacture' class="factureDisplay">
+    <h1>Facture</h1>
+    <table
+    id="facture"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+
+    <thead class="roomsheader">
+      
+      <th class="contentCell">Facture number</th>
+      <th class="contentCell">Exam number</th>
+      <th class="contentCell">Clinique number</th>
+      <th class="contentCell">Date</th>
+      <th class="contentCell">Cost</th>
+      <th class="contentCell">Paid</th>
+      <th class="contentCell">Payment method</th>
+      
+    </thead>
+    <tbody>
+      <td class="contentCell">{{facture.nofacture}}</td>
+      <td class="contentCell">{{facture.noexamen}}</td>
+      <td class="contentCell">{{facture.noclinique}}</td>
+      <td class="contentCell">{{facture.date.substring(0,10)}}</td>
+      <td class="contentCell">{{facture.couttotal}}</td>
+      <td class="contentCell">{{facture.estpaye}}</td>
+      <td class="contentCell">{{facture.moyenpaiement}}</td>
+    </tbody>
+  </table>
+  <table
+    id="traitement"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+   <thead class="roomsheader">
+      
+      <th class="contentCell">Treatment number</th>
+      <th class="contentCell">Treatment description</th>
+      <th class="contentCell">Treatment cost</th>
+      <th class="contentCell">Treatment </th>
+      <th class="contentCell">trea</th>
+      <th class="contentCell">Paid</th>
+      <th class="contentCell">Payment method</th>
+      
+    </thead>
+    <tbody>
+      <td class="contentCell">{{facture.nofacture}}</td>
+      <td class="contentCell">{{facture.noexamen}}</td>
+      <td class="contentCell">{{facture.noclinique}}</td>
+      <td class="contentCell">{{facture.date.substring(0,10)}}</td>
+      <td class="contentCell">{{facture.couttotal}}</td>
+      <td class="contentCell">{{facture.estpaye}}</td>
+      <td class="contentCell">{{facture.moyenpaiement}}</td>
+    </tbody>
+  </table>
+  </div>
 </div>

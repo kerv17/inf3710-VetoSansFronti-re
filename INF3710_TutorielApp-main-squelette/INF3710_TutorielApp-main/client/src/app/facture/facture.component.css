@@ -1,0 +1,10 @@
+.factureDisplay {
+    margin: auto;
+    margin-top: 5%;
+    border: 10px black solid;
+    max-width: 1500px;
+}
+.table {
+    margin: auto;
+    margin-bottom: 100px;
+}

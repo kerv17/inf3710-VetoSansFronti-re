@@ -277,14 +277,12 @@ return client.query(query).then(async (res)  => {
     client.release();
     
     for (let row of res.rows) {
-      let exam:Examen={} as Examen;
       const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
-      if(row.facture != undefined){
-      exam.facture=row.facture;
-      exam.facture=await this.getFacture(row.noclinique,row.noexamen); 
-      exam.facture=await this.ajouterInformationAFacture(exam.facture,row.noclinique,row.noexamen);}
-      exam.Veterinaire = veterinaire;
-      console.log(exam);
+      if(row.facture == undefined){
+      row.facture=row.facture;
+      row.facture=await this.getFacture(row.noclinique,row.noexamen); 
+      row.facture=await this.ajouterInformationAFacture(row.facture,row.noclinique,row.noexamen);}
+      row.Veterinaire = veterinaire;
       examens.push(row);
       
   }
@@ -416,7 +414,6 @@ return client.query(queryanimal).then(animal=>{
    return  client.query(vetQuery).then(vet=>{
       
     facture.veterinaire=vet.rows[0];
-    console.log(facture);
     return facture;
 
     }).catch(err=>{ 

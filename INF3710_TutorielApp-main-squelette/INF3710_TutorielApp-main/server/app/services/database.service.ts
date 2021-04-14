@@ -101,6 +101,10 @@ async getOneAnimal(info:string):Promise<Animal>{
   
   const query=`Select * from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
    console.log(query);
+   if(information.length!=2){
+    client.release();
+    return {} as Animal;
+  }
     return client.query(query).then((res)  => {
     console.log(res);
     const animal:Animal = res.rows[0] ; 

@@ -125,6 +125,9 @@ async getAnimalsFromName(info:string):Promise<Animal[]>{
   const query=`Select * from VetoDb.animal Where LOWER(nom) LIKE '%${information[0].toLowerCase()}%'
   and noClinique = '${information[1]}';`
   let animals:Animal[]=new Array(); 
+  if(information.length!=2){
+    return animals;
+  }
    
     return client.query(query).then(res  => {
       
@@ -190,7 +193,7 @@ async modifyAnimalInfo(animal:Animal):Promise<string>{
   
   const client = await this.pool.connect();
   const query=`UPDATE VetoDb.Animal SET nom='${animal.nom}',noProprietaire='${animal.noproprietaire}',type='${animal.type}',espece='${animal.espece}',poids=${animal.poids},
-  taille=${animal.taille},description='${animal.description}',datenaissance='${animal.datenaissance}',dateinscription='${animal.dateinscription}',etatActuel='${animal.etatactuel}'
+  taille=${animal.taille},description='${animal.description}',etatActuel='${animal.etatactuel}'
   where noAnimal='${animal.noanimal}'
   and noClinique='${animal.noclinique}';`
   return client.query(query).then((res)  => {

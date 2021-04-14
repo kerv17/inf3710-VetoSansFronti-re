@@ -125,6 +125,9 @@ async getAnimalsFromName(info:string):Promise<Animal[]>{
   const query=`Select * from VetoDb.animal Where LOWER(nom) LIKE '%${information[0].toLowerCase()}%'
   and noClinique = '${information[1]}';`
   let animals:Animal[]=new Array(); 
+  if(information.length!=2){
+    return animals;
+  }
    
     return client.query(query).then(res  => {
       

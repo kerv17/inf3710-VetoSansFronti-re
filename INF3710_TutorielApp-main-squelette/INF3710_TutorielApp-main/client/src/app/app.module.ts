@@ -11,6 +11,7 @@ import { CommunicationService } from "./communication.service";
 import { FactureComponent } from "./facture/facture.component";
 import { ProprietaireAnimalComponent } from "./proprietaire-animal/proprietaire-animal.component";
 import { TraitementComponent } from "./traitement/traitement.component";
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
     AnimalComponent,
     TraitementComponent,
     FactureComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -30,5 +32,6 @@ import { TraitementComponent } from "./traitement/traitement.component";
   ],
   providers: [CommunicationService],
   bootstrap: [AppComponent],
+  exports: [ModalComponent],
 })
 export class AppModule { }

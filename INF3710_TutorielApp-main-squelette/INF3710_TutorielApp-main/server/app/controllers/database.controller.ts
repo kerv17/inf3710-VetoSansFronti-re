@@ -153,7 +153,7 @@ export class DatabaseController {
 
 
     router.delete(
-      "/animals/:info",
+      "/animals/delete/:info",
       (req: Request, res: Response, _: NextFunction) => {
         
         this.databaseService

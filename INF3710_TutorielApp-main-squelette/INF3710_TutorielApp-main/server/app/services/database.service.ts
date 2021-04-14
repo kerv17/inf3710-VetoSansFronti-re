@@ -171,7 +171,7 @@ async addAnimal(animal:Animal):Promise<String>{
   async deleteAnimal(info:string):Promise<string>{
     const client = await this.pool.connect();
     const information = info.split(',');
-    const query=`DELETE from VetoDb.Animal WHERE noanimal='`+information[1]+`' and noclinique='`+information[0]+`';`;
+    const query=`DELETE from VetoDb.Animal WHERE noanimal='${information[1]}' and noclinique = '${information[0]}';`;
     console.log(query);
     return client.query(query).then((res)  => {
             client.release();
@@ -189,7 +189,7 @@ async addAnimal(animal:Animal):Promise<String>{
 async modifyAnimalInfo(animal:Animal):Promise<string>{
   
   const client = await this.pool.connect();
-  const query=`UPDATE VetoDb.Animal SET noProprietaire='${animal.noproprietaire}',nom='${animal.nom}',noProprietaire='${animal.noproprietaire}',type='${animal.type}',espece='${animal.espece}',poids=${animal.poids},
+  const query=`UPDATE VetoDb.Animal SET nom='${animal.nom}',noProprietaire='${animal.noproprietaire}',type='${animal.type}',espece='${animal.espece}',poids=${animal.poids},
   taille=${animal.taille},description='${animal.description}',datenaissance='${animal.datenaissance}',dateinscription='${animal.dateinscription}',etatActuel='${animal.etatactuel}'
   where noAnimal='${animal.noanimal}'
   and noClinique='${animal.noclinique}';`

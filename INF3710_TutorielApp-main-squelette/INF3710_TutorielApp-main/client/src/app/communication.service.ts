@@ -80,7 +80,7 @@ export class CommunicationService {
 
   public deleteAnimal(noClinique: string, noAnimal: string): Observable<string> {
     return this.http
-      .post<string>(this.BASE_URL + `/animals/delete/${noClinique},${noAnimal}`, {})
+      .delete<string>(this.BASE_URL + `/animals/delete/${noClinique},${noAnimal}`, {})
       .pipe(catchError(this.handleError<string>("deleteAnimal")));
   }
 

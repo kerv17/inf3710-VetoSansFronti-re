@@ -53,6 +53,7 @@ export class FactureComponent implements OnInit {
   getExamens():void {
     this.communicationService.getExamens(this.noClinique,this.noAnimal).subscribe((examens: Examen[]) =>{
       this.examens = examens;
+      console.log(examens);
     })
   }
 

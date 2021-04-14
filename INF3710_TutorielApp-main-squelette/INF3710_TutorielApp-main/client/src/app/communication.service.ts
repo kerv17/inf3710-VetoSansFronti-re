@@ -7,6 +7,7 @@ import { Animal } from "../../../common/tables/Animal";
 import { Proprietaire } from "../../../common/tables/proprietaire";
 import { TraitementEffectue } from "../../../common/tables/TraitementEffectue";
 import { Examen } from "../../../common/tables/Examen";
+import { Facture } from "../../../common/tables/facture";
 
 @Injectable()
 export class CommunicationService {
@@ -77,10 +78,10 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<number>("updateAnimal")));
   }
 
-  public deleteAnimal(noClinique: string, noAnimal: string): Observable<number> {
+  public deleteAnimal(noClinique: string, noAnimal: string): Observable<string> {
     return this.http
-      .post<number>(this.BASE_URL + `/animals/delete/${noClinique}/${noAnimal}`, {})
-      .pipe(catchError(this.handleError<number>("deleteAnimal")));
+      .post<string>(this.BASE_URL + `/animals/delete/${noClinique},${noAnimal}`, {})
+      .pipe(catchError(this.handleError<string>("deleteAnimal")));
   }
 
   public insertAnimal(animal: Animal): Observable<number> {
@@ -110,6 +111,13 @@ export class CommunicationService {
     return this.http
       .get<Examen[]>(this.BASE_URL + `/animal/examen/${noAnimal},${noClinique}` )
       .pipe(catchError(this.handleError<Examen[]>("getTraitements")));
+  }
+
+  // FACTURES ////////////////////////////////////////////////////////////////
+  public generateFacture(noClinique:string, noexamen:string, paiementType:string, isPaid:boolean):Observable<Facture[]>{
+    return this.http
+      .get<Facture[]>(this.BASE_URL + `/facture/${noClinique},${noexamen}/${paiementType},${isPaid}` )
+      .pipe(catchError(this.handleError<Facture[]>("getTraitements")));
   }
 
   private handleError<T>(

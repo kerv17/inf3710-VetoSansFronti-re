@@ -171,7 +171,7 @@ async addAnimal(animal:Animal):Promise<String>{
   async deleteAnimal(info:string):Promise<string>{
     const client = await this.pool.connect();
     const information = info.split(',');
-    const query=`DELETE from VetoDb.Animal WHERE noanimal='`+information[0]+`' and noclinique='`+information[1]+`';`;
+    const query=`DELETE from VetoDb.Animal WHERE noanimal='`+information[1]+`' and noclinique='`+information[0]+`';`;
     console.log(query);
     return client.query(query).then((res)  => {
             client.release();
@@ -278,8 +278,7 @@ return client.query(query).then(async (res)  => {
     
     for (let row of res.rows) {
       const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
-      let examen:Examen={}as Examen;
-      
+      let examen:Examen=row as Examen;
       if(row.facture != undefined){
         
       examen.facture=await this.getFacture(row.noclinique,row.noexamen); 

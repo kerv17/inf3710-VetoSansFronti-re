@@ -126,6 +126,7 @@ async getAnimalsFromName(info:string):Promise<Animal[]>{
   and noClinique = '${information[1]}';`
   let animals:Animal[]=new Array(); 
   if(information.length!=2){
+    client.release();
     return animals;
   }
    

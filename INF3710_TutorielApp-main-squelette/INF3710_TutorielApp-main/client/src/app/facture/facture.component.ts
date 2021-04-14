@@ -15,10 +15,13 @@ export class FactureComponent implements OnInit {
   displayFacture = false;
   noClinique: string;
   noAnimal: string;
+  modalOpen = true;
 
   public animaux: Animal[] = [];
   public cliniques: Clinique[] = [];
   public examens: Examen[] = [];
+
+  public noExamenAGenerer: string;
   public constructor(private communicationService:CommunicationService) { }
 
   public ngOnInit() {

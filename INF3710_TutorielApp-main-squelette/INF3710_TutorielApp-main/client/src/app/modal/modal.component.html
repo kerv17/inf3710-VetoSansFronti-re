@@ -1,8 +1,17 @@
 <div id="myModal" class="modal">
   <div class="modal-content">
     <div class="close" (click)="close()">&times;</div>
-
-
+    <div>
+      <label>Payment method</label>
+      <select (change)="setMoyen($event.target.options.selectedIndex);">
+        <option *ngFor="let moyen of moyens">{{moyen}}</option>
+      </select>
+    </div>
+    <div>
+      <label>Is paid</label>
+      <input type="checkbox" (change)="paid= $event.target.checked">
+    </div>
+    <button (click)="genererFacture(payment,paid)">Generate</button>
   </div>
 </div>
 

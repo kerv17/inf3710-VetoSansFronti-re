@@ -48,7 +48,7 @@
           <td class="contentCell">{{exam.heureexamen}}</td>
           <td class="contentCell">{{exam.description}}</td>
           <td class="contentCell">
-            <button *ngIf="examens[i].facture ==undefined">Generate</button>
+            <button *ngIf="examens[i].facture ==undefined" (click)="modalOpen=true; noExamenAGenerer=examen[i].noexamen">Generate</button>
             <button *ngIf="examens[i].facture !=undefined && (!displayFacture || facture != examens[i].facture)"(click)="showFacture(i)">View</button>
             <button *ngIf="examens[i].facture !=undefined && facture == examens[i].facture && displayFacture"(click)="hideFacture(i)">Hide</button>
           </td>
@@ -116,4 +116,7 @@
     </tbody>
   </table>
   </div>
+
+  <app-modal [noClinique]="noClinique" [noExamen]="noExamenAGenerer" (isVisibleEvent)="modalOpen=false" *ngIf='modalOpen'></app-modal>
 </div>
+

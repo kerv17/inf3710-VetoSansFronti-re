@@ -114,10 +114,10 @@ export class CommunicationService {
   }
 
   // FACTURES ////////////////////////////////////////////////////////////////
-  public generateFacture(noClinique:string, noexamen:string, paiementType:string, isPaid:boolean):Observable<Facture[]>{
+  public generateFacture(noClinique:string, noexamen:string, paiementType:string, isPaid:boolean):Observable<Facture>{
     return this.http
-      .get<Facture[]>(this.BASE_URL + `/facture/${noClinique},${noexamen}/${paiementType},${isPaid}` )
-      .pipe(catchError(this.handleError<Facture[]>("getTraitements")));
+      .get<Facture>(this.BASE_URL + `/facture/${noClinique},${noexamen}/${paiementType},${isPaid}` )
+      .pipe(catchError(this.handleError<Facture>("getTraitements")));
   }
 
   private handleError<T>(

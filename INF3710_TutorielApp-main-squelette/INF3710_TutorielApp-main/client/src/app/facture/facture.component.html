@@ -121,6 +121,6 @@
   </table>
   </div>
 
-  <app-modal [noClinique]="noClinique" [noExamen]="noExamenAGenerer" (factureEvent)="setFacture($event)" (isVisibleEvent)="modalOpen=false" ></app-modal>
+  <app-modal [noClinique]="noClinique" [noExamen]="noExamenAGenerer" (factureEvent)="setFacture($event)" (isVisibleEvent)="modalOpen=false" *ngIf="modalOpen"></app-modal>
 </div>
 

@@ -62,6 +62,7 @@ export class FactureComponent implements OnInit {
 
   showFacture(index:number){
     this.facture = this.examens[index].facture;
+
     this.displayFacture = true;
   }
 

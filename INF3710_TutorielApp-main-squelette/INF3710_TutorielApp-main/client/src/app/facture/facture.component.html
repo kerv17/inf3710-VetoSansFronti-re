@@ -1,6 +1,6 @@
 <div id="room">
   <h1>Exams</h1>
-  
+
 
   <div class="container contentSelect">
     <div class="input-group mb-3">
@@ -31,14 +31,14 @@
   >
 
     <thead class="roomsheader">
-      
+
       <th class="contentCell">Exam number</th>
       <th class="contentCell">Veterinaire</th>
       <th class="contentCell">Date</th>
       <th class="contentCell">Time</th>
       <th class="contentCell">description</th>
       <th class="contentCell">Generate/View</th>
-      
+
     </thead>
     <tbody>
       <tr *ngFor="let exam of examens; let i = index">
@@ -48,7 +48,7 @@
           <td class="contentCell">{{exam.heureexamen}}</td>
           <td class="contentCell">{{exam.description}}</td>
           <td class="contentCell">
-            <button *ngIf="examens[i].facture ==undefined" (click)="modalOpen=true; noExamenAGenerer=examen[i].noexamen">Generate</button>
+            <button *ngIf="examens[i].facture ==undefined" (click)="modalOpen=true; noExamenAGenerer=examens[i].noexamen">Generate</button>
             <button *ngIf="examens[i].facture !=undefined && (!displayFacture || facture != examens[i].facture)"(click)="showFacture(i)">View</button>
             <button *ngIf="examens[i].facture !=undefined && facture == examens[i].facture && displayFacture"(click)="hideFacture(i)">Hide</button>
           </td>
@@ -67,7 +67,7 @@
   >
 
     <thead class="roomsheader">
-      
+
       <th class="contentCell">Facture number</th>
       <th class="contentCell">Exam number</th>
       <th class="contentCell">Clinique number</th>
@@ -75,7 +75,7 @@
       <th class="contentCell">Cost</th>
       <th class="contentCell">Paid</th>
       <th class="contentCell">Payment method</th>
-      
+
     </thead>
     <tbody>
       <td class="contentCell">{{facture.nofacture}}</td>
@@ -95,7 +95,7 @@
     class="table-striped table-hover"
   >
    <thead class="roomsheader">
-      
+
       <th class="contentCell">Treatment number</th>
       <th class="contentCell">Treatment description</th>
       <th class="contentCell">Treatment cost</th>
@@ -103,7 +103,7 @@
       <th class="contentCell">trea</th>
       <th class="contentCell">Paid</th>
       <th class="contentCell">Payment method</th>
-      
+
     </thead>
     <tbody>
       <td class="contentCell">{{facture.nofacture}}</td>

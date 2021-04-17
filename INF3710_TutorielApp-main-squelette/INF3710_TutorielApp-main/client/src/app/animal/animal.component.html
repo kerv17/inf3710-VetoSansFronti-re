@@ -9,7 +9,7 @@
         <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       </div>
       <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose Clinique</option>
+        <option disabled>Choisir Clinique</option>
         <option *ngFor="let clinique of cliniques">{{ clinique.nom }}</option>
       </select>
     </div>
@@ -29,22 +29,22 @@
     class="table-striped table-hover"
   >
     <thead class="roomsheader">
-      <th class="contentCell">Animal Number</th>
-      <th class="contentCell">Owner</th>
-      <th class="contentCell">Name</th>
+      <th class="contentCell">No Animal</th>
+      <th class="contentCell">Proprietaire</th>
+      <th class="contentCell">Nom</th>
 
       <th class="contentCell">Type</th>
       <th class="contentCell">Espece</th>
 
-      <th class="contentCell">Size</th>
-      <th class="contentCell">Weight</th>
+      <th class="contentCell">Taille</th>
+      <th class="contentCell">Poids</th>
 
       <th class="contentCell">Description</th>
 
-      <th class="contentCell">Birthdate</th>
-      <th class="contentCell">Inscription date</th>
+      <th class="contentCell">Date de naissance</th>
+      <th class="contentCell">Date d'inscription</th>
 
-      <th class="contentCell">Current State</th>
+      <th class="contentCell">Etat courant</th>
       <th class="contentCell">Action</th>
     </thead>
     <tbody>
@@ -77,18 +77,18 @@
         <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNumber></td>
         <td class="contentCell">
           <select class="custom-select" id="proprietaireSelect" (change)="newOwner($event.target.options.selectedIndex - 1)">
-            <option disabled>Choose a owner</option>
+            <option disabled>Choisir un proprietaire</option>
             <option *ngFor="let proprietaire of proprietaires">{{ proprietaire.noproprietaire }}:{{ proprietaire.prenom }} {{ proprietaire.nom }}</option>
 </select>        </td>
-        <td class="contentCell" contenteditable="true" placeholder="New Type" #newAnimalNom></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalType></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalEspece></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalTaille></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalPoids></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDescrpition></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateNaissance></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalDateInscription></td>
-        <td class="contentCell" contenteditable="true" placeholder="New Price" #newAnimalEtat></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau nom" #newAnimalNom></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Type" #newAnimalType></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle espece" #newAnimalEspece></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Taille" #newAnimalTaille></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Poids" #newAnimalPoids></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle Description" #newAnimalDescrpition></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Date de naissance" #newAnimalDateNaissance></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Date inscription" #newAnimalDateInscription></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvel etat" #newAnimalEtat></td>
         <button type="button" class="btn" (click)="insertAnimal()">Ajouter</button>
       </tr>
     </tbody>

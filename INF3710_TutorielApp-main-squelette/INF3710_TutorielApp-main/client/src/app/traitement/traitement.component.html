@@ -1,5 +1,5 @@
 <div id="room">
-  <h1>Treatments</h1>
+  <h1>Traitement</h1>
   
   <div class="container contentSelect">
     <div class="input-group mb-3">
@@ -7,14 +7,14 @@
       <div>
       <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose a clinique</option>
+        <option disabled>Choisir clinique</option>
         <option *ngFor="let clinique of cliniques">{{clinique.noclinique}} - {{ clinique.nom }}</option>
       </select>
     </div>
     <div>
       <label class="input-group-text" for="cliniqueSelect">Animal</label>
       <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose an Animal</option>
+        <option disabled>Choisir Animal</option>
         <option *ngFor="let animal of animaux">{{ animal.noanimal }} - {{ animal.nom }}</option>
       </select>
     </div>
@@ -31,12 +31,12 @@
   >
 
     <thead class="roomsheader">
-      <th class="contentCell">Exam number</th>
-      <th class="contentCell">Treatment number</th>
-      <th class="contentCell">Treatment name</th>
-      <th class="contentCell">Treatment amount</th>
-      <th class="contentCell">Date begin</th>
-      <th class="contentCell">Date end</th>
+      <th class="contentCell">No Examen</th>
+      <th class="contentCell">No Traitement</th>
+      <th class="contentCell">Nom Traitement</th>
+      <th class="contentCell">Quantite de Traitement</th>
+      <th class="contentCell">Date de debut</th>
+      <th class="contentCell">Date de fin</th>
       
     </thead>
     <tbody>

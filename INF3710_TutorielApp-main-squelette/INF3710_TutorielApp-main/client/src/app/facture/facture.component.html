@@ -1,5 +1,5 @@
 <div id="room">
-  <h1>Exams</h1>
+  <h1>Examens</h1>
 
 
   <div class="container contentSelect">
@@ -8,14 +8,14 @@
       <div>
       <label class="input-group-text" for="cliniqueSelect">Clinique</label>
       <select class="custom-select" id="cliniqueSelect" (change)="updateSelectedClinique($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose a clinique</option>
+        <option disabled>Choisir clinique</option>
         <option *ngFor="let clinique of cliniques">{{clinique.noclinique}} - {{ clinique.nom }}</option>
       </select>
     </div>
     <div>
       <label class="input-group-text" for="cliniqueSelect">Animal</label>
       <select class="custom-select" id="AnimalSelect" (change)="updateSelectedAnimal($event.target.options.selectedIndex - 1)" #noCliniqueSelector>
-        <option disabled>Choose an Animal</option>
+        <option disabled>Choisir Animal</option>
         <option *ngFor="let animal of animaux">{{ animal.noanimal }} - {{ animal.nom }}</option>
       </select>
     </div>
@@ -32,12 +32,12 @@
 
     <thead class="roomsheader">
 
-      <th class="contentCell">Exam number</th>
+      <th class="contentCell">No Exam</th>
       <th class="contentCell">Veterinaire</th>
       <th class="contentCell">Date</th>
-      <th class="contentCell">Time</th>
-      <th class="contentCell">description</th>
-      <th class="contentCell">Generate/View Facture</th>
+      <th class="contentCell">Heure</th>
+      <th class="contentCell">Description</th>
+      <th class="contentCell">Generer/Voir Facture</th>
 
     </thead>
     <tbody>
@@ -58,8 +58,8 @@
 
   <div *ngIf='displayFacture' class="factureDisplay">
     <h1>Facture</h1>
-    <h3>Owner: {{facture.proprietaire.prenom +' '+facture.proprietaire.nom}}</h3>
-    <h3>Veterinarian: {{facture.veterinaire.prenom +' '+facture.veterinaire.nom}}</h3>
+    <h3>Proprietaire: {{facture.proprietaire.prenom +' '+facture.proprietaire.nom}}</h3>
+    <h3>Veterinaire: {{facture.veterinaire.prenom +' '+facture.veterinaire.nom}}</h3>
     <table
     id="facture"
     align="center"
@@ -70,13 +70,13 @@
 
     <thead class="roomsheader">
 
-      <th class="contentCell">Facture number</th>
-      <th class="contentCell">Exam number</th>
-      <th class="contentCell">Clinique number</th>
+      <th class="contentCell">No Facture</th>
+      <th class="contentCell">No Examen</th>
+      <th class="contentCell">No Clinique</th>
       <th class="contentCell">Date</th>
-      <th class="contentCell">Cost</th>
-      <th class="contentCell">Paid</th>
-      <th class="contentCell">Payment method</th>
+      <th class="contentCell">Prix</th>
+      <th class="contentCell">Payé</th>
+      <th class="contentCell">Méthode de paiement</th>
 
     </thead>
     <tbody>
@@ -85,7 +85,7 @@
       <td class="contentCell">{{facture.noclinique}}</td>
       <td class="contentCell">{{facture.date.substring(0,10)}}</td>
       <td class="contentCell">{{facture.couttotal}}</td>
-      <td class="contentCell">{{facture.estpaye}}</td>
+      <td class="contentCell">{{facture.estpaye ? "Oui" : "Non"}}</td>
       <td class="contentCell">{{facture.moyenpaiement}}</td>
     </tbody>
   </table>
@@ -99,12 +99,12 @@
   >
    <thead class="roomsheader">
 
-      <th class="contentCell">Treatment number</th>
-      <th class="contentCell">Treatment description</th>
-      <th class="contentCell">Treatment cost</th>
-      <th class="contentCell">Treatment start</th>
-      <th class="contentCell">Treatment end</th>
-      <th class="contentCell">Treatment amount</th>
+      <th class="contentCell">No Traitement</th>
+      <th class="contentCell">Description</th>
+      <th class="contentCell">Prix</th>
+      <th class="contentCell">Début</th>
+      <th class="contentCell">Fin</th>
+      <th class="contentCell">Quantité</th>
 
     </thead>
     <tbody>

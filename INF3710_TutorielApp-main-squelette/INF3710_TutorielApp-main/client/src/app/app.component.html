@@ -2,19 +2,19 @@
   <a class="navbar-brand title" href="/">INF3710 - TP5</a>
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" routerLink="/animals">Animals</a>
-      <a class="nav-item nav-link active" routerLink="/traitements">Treatments</a>
-      <a class="nav-item nav-link active" routerLink="/examens">Exams</a>
+      <a class="nav-item nav-link active" routerLink="/animals">Animaux</a>
+      <a class="nav-item nav-link active" routerLink="/traitements">Traitments</a>
+      <a class="nav-item nav-link active" routerLink="/examens">Examens</a>
     </div>
   </div>
 </nav>
 
 <div class="home" *ngIf="route == ''">
   <p>
-    Welcome<br />to<br /><span class="hotel1">Veto</span
+    Bienvenue<br />à<br /><span class="hotel1">Veto</span
     ><span class="hotel2">Sans</span><span class="hotel3">Frontieres</span>
   </p>
-  <button type="button" class="btn" routerLink="/animals">CHECK OUR ANIMALS &#10140;</button>
+  <button type="button" class="btn" routerLink="/animals">Voir les animauxs &#10140;</button>
 </div>
 
 <router-outlet></router-outlet>

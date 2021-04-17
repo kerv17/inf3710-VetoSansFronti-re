@@ -15,7 +15,7 @@ export class FactureComponent implements OnInit {
   displayFacture = false;
   noClinique: string;
   noAnimal: string;
-  modalOpen = true;
+  modalOpen = false;
 
   public animaux: Animal[] = [];
   public cliniques: Clinique[] = [];

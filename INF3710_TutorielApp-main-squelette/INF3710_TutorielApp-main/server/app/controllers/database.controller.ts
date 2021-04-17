@@ -18,9 +18,7 @@ export class DatabaseController {
   public get router(): Router {
     const router: Router = Router();
 
-    // ======= HOTEL ROUTES =======
-    //http://localhost:3000/database/animals
-    // ex http://localhost:3000/database/hotel?hotelNb=3&name=LeGrandHotel&city=laval
+
     router.get("/animals/:info", (req: Request, res: Response, _: NextFunction) => {
   
       this.databaseService

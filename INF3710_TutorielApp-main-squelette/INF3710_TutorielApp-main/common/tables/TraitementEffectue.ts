@@ -7,6 +7,6 @@ quantitetraitement:string;
 datedebut:Date;
 datefin:Date;
 description:string;
-
+cout:number;
 
 }

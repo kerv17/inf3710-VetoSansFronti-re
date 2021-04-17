@@ -64,10 +64,10 @@ export class DatabaseService {
   
 }
   async getAllanimals(noClinique:string):Promise<Animal[]>{
-    console.log(noClinique);
+    //console.log(noClinique);
     const getQuery = `SELECT * FROM VetoDB.Animal Where noCLinique= '${noClinique}';` ;
     const client = await this.pool.connect();
-    console.log('here');
+    //console.log('here');
 
     let animals:Animal[]=new Array(); 
    
@@ -96,17 +96,17 @@ export class DatabaseService {
 async getOneAnimal(info:string):Promise<Animal>{
   //do a string split to split the values of animal name and number of clinique and owner no hopefully
   //lets say that the order is nom noProprietaire noClinique
-  const client = await this.pool.connect();   console.log(info);
+  const client = await this.pool.connect();   //console.log(info);
   const information = info.split(',');
   
   const query=`Select * from VetoDb.Animal WHERE noanimal='`+information[0].toString()+`' and noclinique='`+information[1]+`';`;
-   console.log(query);
+   //console.log(query);
    if(information.length!=2){
     client.release();
     return {} as Animal;
   }
     return client.query(query).then((res)  => {
-    console.log(res);
+    //console.log(res);
     const animal:Animal = res.rows[0] ; 
         client.release();
         return animal;
@@ -180,7 +180,7 @@ async addAnimal(animal:Animal):Promise<String>{
     const client = await this.pool.connect();
     const information = info.split(',');
     const query=`DELETE from VetoDb.Animal WHERE noanimal='${information[1]}' and noclinique = '${information[0]}';`;
-    console.log(query);
+    //console.log(query);
     return client.query(query).then((res)  => {
             client.release();
             return 'succes';
@@ -220,7 +220,7 @@ public async getAllCliniques():Promise<Clinique[]>{
  
   const getQuery = `SELECT * FROM VetoDB.Clinique ;` ;
   const client = await this.pool.connect();
-  console.log('here');
+  //console.log('here');
 
   let cliniques:Clinique[]=new Array(); 
  
@@ -249,7 +249,7 @@ public async getAllProprietaires(noClinique:string):Promise<Proprietaire[]>{
  
     const getQuery = `SELECT * FROM VetoDB.ProprietaireAnimal Where noCLinique= '${noClinique}';` ;
     const client = await this.pool.connect();
-    console.log('here');
+    //console.log('here');
 
     let proprietaires:Proprietaire[]=new Array(); 
    
@@ -293,9 +293,9 @@ return client.query(query).then(async (res)  => {
         examen.facture = await this.ajouterInformationAFacture(examen.facture,row.noclinique,row.noexamen);
       }
       examen.Veterinaire = veterinaire;
-      console.log(examen);
+      //console.log(examen);
       examens.push(examen);
-      console.log(examen);
+      //console.log(examen);
       
   }
   
@@ -341,16 +341,45 @@ return client.query(query).then(async (res)  => {
 
    }
 
-   
+   public async getTraitementsForExam(noClinique:string,noExam:string):Promise<TraitementEffectue[]>{
+    const client = await this.pool.connect();
+    const traitements:TraitementEffectue[]=new Array();
+
+    const query=`Select A.* ,description,cout from
+                  VetoDb.traitementeffectue A
+                  NATURAL JOIN VetoDB.traitement
+                  WHERE noexamen = '${noExam}'
+                  AND noclinique = '${noClinique}'
+                  `;
+  return client.query(query).then((res)  => {
+      client.release();
+      for (let row of res.rows) {
+           
+        traitements.push(row);
+        
+    }
+      console.log(traitements);
+      return traitements;
+     
+  }).catch(err=>{
+          client.release();
+          console.error(err);
+          throw new Error();
+  });
+
+   }
 //====Facture=======
 //Get Facture
 public async getFacture(noClinique:string,noExamen:string):Promise<Facture>{
 
   const client = await this.pool.connect();
   const query= `Select * from VetoDb.Facture where noCLinique = '${noClinique}' and noExamen='${noExamen}';`;
-  return client.query(query).then((facture)=>{
+  return client.query(query).then(async (facture)=>{
     client.release();
-    return facture.rows[0];
+    const traitements = await this.getTraitementsForExam(noClinique,noExamen);
+    const fact:Facture = facture.rows[0];
+    fact.traitements = traitements;
+    return fact;
   }).catch(err=>{
     client.release();
     console.error(err);
@@ -363,38 +392,32 @@ public async getFacture(noClinique:string,noExamen:string):Promise<Facture>{
 public async creerFacture(info:string,paiment:string):Promise<Facture>{
   const information = info.split(',');
   const paiementInfo = paiment.split(',');
-
+  console.log('hat');
 const date=new Date();
 const sqlDate= `'${date.getFullYear()}-${date.getMonth()}-${date.getDate()}'`;
 let facture:Facture={} as Facture;
 facture.traitements =new Array();
 
-const traitementQuery=` Select * From Vetodb.traitementeffectue 
-Where noExamen='${information[1]}' and noClinique ='${information[0]}'`;
 
 const query=`Insert into VetoDb.facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) 
 Values('${information[1]}','${information[0]}','${paiementInfo[0]}',${sqlDate}, (Select Sum(cout) from Vetodb.traitement
 where noTraitement in ( Select noTraitement From Vetodb.traitementeffectue 
 Where noExamen='${information[1]}' and noClinique ='${information[0]}')  ),${paiementInfo[1]}) Returning *;`;
 
-
+const traitements = await this.getTraitementsForExam(information[0],information[1]);
 
 const client = await this.pool.connect();
-return client.query(traitementQuery).then((traitements)=>{ 
+
   
   
-  for (let row of traitements.rows) {
-           
-    facture.traitements.push(row);
-    
-  }
+  
 
  return client.query(query).then((res)  => {
   client.release();
   
   facture=res.rows[0];
-  facture.traitements=traitements.rows[0];
-  
+  facture.traitements=traitements;
+  console.log(traitements);
   return this.ajouterInformationAFacture(facture,information[0],information[1]);
    
 }).catch(err=>{
@@ -403,11 +426,6 @@ return client.query(traitementQuery).then((traitements)=>{
         throw new Error();
 });
 
-
-}).catch(err=>{ 
-  client.release();
-  console.error(err);
-  throw new Error();});
 
 }
 

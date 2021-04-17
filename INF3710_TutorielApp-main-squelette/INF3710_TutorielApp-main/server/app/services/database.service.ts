@@ -288,13 +288,12 @@ return client.query(query).then(async (res)  => {
       const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
       let examen:Examen=row as Examen;
       
-      
       examen.facture = await this.getFacture(row.noclinique,row.noexamen); 
       if (examen.facture != undefined){
         examen.facture = await this.ajouterInformationAFacture(examen.facture,row.noclinique,row.noexamen);
       }
-      
       examen.Veterinaire = veterinaire;
+      console.log(examen);
       examens.push(examen);
       console.log(examen);
       
@@ -375,8 +374,8 @@ Where noExamen='${information[1]}' and noClinique ='${information[0]}'`;
 
 const query=`Insert into VetoDb.facture (noExamen,noCLinique,moyenpaiement,date,couttotal,estpaye) 
 Values('${information[1]}','${information[0]}','${paiementInfo[0]}',${sqlDate}, (Select Sum(cout) from Vetodb.traitement
-where noTraitement =( Select noTraitement From Vetodb.traitementeffectue 
-Where noExamen='${information[1]}' and noClinique ='${information[0]}')),${paiementInfo[1]}) Returning *;`;
+where noTraitement in ( Select noTraitement From Vetodb.traitementeffectue 
+Where noExamen='${information[1]}' and noClinique ='${information[0]}')  ),${paiementInfo[1]}) Returning *;`;
 
 
 

@@ -28,6 +28,15 @@ export class DatabaseService {
 
  
   // ======= DEBUG =======
+  // ======= DEBUG =======
+  public async getAllFromTable(tableName: string): Promise<pg.QueryResult> {
+    
+    const client = await this.pool.connect();
+    const res = await client.query(`SELECT * FROM HOTELDB.${tableName};`);
+    client.release();
+    return res;
+  }
+  
   //Get ALL animals
   async getAllanimaux():Promise<Animal[]>{
     console.log('ALL');

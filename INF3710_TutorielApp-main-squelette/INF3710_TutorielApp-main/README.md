@@ -1,6 +1,6 @@
 # INF3710_TutorielApp
 
-Tutoriel du projet d'INF3710
+INF3710
 
 ## Avant de lancer le projet
 - Assurez-vous que Postgres roule sur vos machines 
@@ -11,7 +11,9 @@ Tutoriel du projet d'INF3710
 
 - Allez dans `/server` et lancez `npm install​`
 
-- Allez dans `/server/app/services/database.service.ts` et modifiez `connectionConfig` avec les bons paramètres de votre BD​
+- Si vous êtes sur Windows, executez JSONReader.exe et remplissez les informations de la DB afin de générer le fichier d'informations.
+
+- Sinon, entrez manuellement les informations dans le ficher information.json
 
 ## Pour lancer le projet
 
@@ -19,9 +21,11 @@ Tutoriel du projet d'INF3710
 
 - Allez dans `/client` et faites `npm start`​
 
-## Demo Screenshots (remove for actual readme)
+## Screenshots
 
 ![Main Page](./imgs/mainpage.PNG "Welcome Page")
-![Hotels Page](./imgs/hotels.PNG "Hotels Page")
-![Rooms Page](./imgs/rooms.PNG "Rooms Page")
-![Guests Page](./imgs/guests.PNG "Guests Page")
+![Hotels Page](./imgs/animaux.PNG "Hotels Page")
+![Rooms Page](./imgs/traitement.PNG "Rooms Page")
+![Guests Page](./imgs/examen.PNG "Guests Page")
+![Guests Page](./imgs/facture.PNG "Guests Page")
+![Guests Page](./imgs/generer.PNG "Guests Page")

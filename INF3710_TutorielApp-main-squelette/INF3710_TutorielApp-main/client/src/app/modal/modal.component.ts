@@ -38,7 +38,7 @@ export class ModalComponent  {
       console.log(facture);
     })
     close();
-
+    this.factureEvent.emit(this.facture);
   }
 
   setMoyen(index:number){

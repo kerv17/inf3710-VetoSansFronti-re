@@ -287,12 +287,16 @@ return client.query(query).then(async (res)  => {
     for (let row of res.rows) {
       const veterinaire = await this.getVeterinaire(row.noclinique,row.noveterinaire);
       let examen:Examen=row as Examen;
-      if(row.facture != undefined){
-        
-      examen.facture=await this.getFacture(row.noclinique,row.noexamen); 
-      examen.facture=await this.ajouterInformationAFacture(examen.facture,row.noclinique,row.noexamen);}
+      
+      
+      examen.facture = await this.getFacture(row.noclinique,row.noexamen); 
+      if (examen.facture != undefined){
+        examen.facture = await this.ajouterInformationAFacture(examen.facture,row.noclinique,row.noexamen);
+      }
+      
       examen.Veterinaire = veterinaire;
       examens.push(examen);
+      console.log(examen);
       
   }
   

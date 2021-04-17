@@ -35,6 +35,7 @@ export class FactureComponent implements OnInit {
   public updateSelectedAnimal(index: number): void {
     this.noAnimal = this.animaux[index].noanimal;
     this.getExamens();
+    console.log(this.examens);
   }
 
   public getCliniques(): void {
@@ -69,5 +70,10 @@ export class FactureComponent implements OnInit {
   hideFacture(index:number){
     this.facture = this.examens[index].facture;
     this.displayFacture = false;
+  }
+
+  setFacture(facture:Facture){
+    const examen = this.examens.find(element => element.noexamen === this.noExamenAGenerer) as Examen;
+    examen.facture= facture;
   }
 }

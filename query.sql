@@ -127,12 +127,13 @@ AND
 -- Lister tous les animaux d’une clinique donnée avec leurs traitements s’ils existent.
 SELECT Animal.nom, TraitementEffectue.*
 FROM VetoDB.TraitementEffectue
-INNER JOIN VetoDB.Animal
-ON Animal.noAnimal IN (
-	SELECT noAnimal
+NATURAL JOIN VetoDB.Animal
+WHERE (Animal.noAnimal,Animal.noClinique, TraitementEffectue.noExamen) IN (
+	SELECT noAnimal,noClinique, noExamen
 	FROM VetoDB.Examen
 	WHERE (noClinique, noExamen) IN (
 		SELECT noClinique, noExamen
 		FROM VetoDB.TraitementEffectue
 	)
 )
+ORDER BY TraitementEffectue.noClinique,Animal.nom;

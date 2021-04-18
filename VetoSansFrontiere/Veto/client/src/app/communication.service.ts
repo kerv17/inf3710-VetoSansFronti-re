@@ -85,7 +85,6 @@ export class CommunicationService {
   }
 
   public insertAnimal(animal: Animal): Observable<number> {
-    window.alert('test');
     return this.http
       .post<number>(this.BASE_URL + "/animals/insert", animal)
       .pipe(catchError(this.handleError<number>("insertAnimal")));

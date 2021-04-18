@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Clinique(
 
 CREATE TABLE IF NOT EXISTS VetoDB.Traitement(
 	noTraitement VARCHAR(10)  NOT NULL,
-	description  VARCHAR(20)  NOT NULL,
+	description  VARCHAR(50)  NOT NULL,
 	cout  Numeric(5,2)  NOT NULL,
 	PRIMARY KEY (noTraitement)
 );

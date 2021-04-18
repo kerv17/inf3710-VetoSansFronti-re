@@ -5,13 +5,16 @@ TRUNCATE TABLE VetoDB.Traitement CASCADE;
 INSERT INTO VetoDB.Clinique VALUES('1',' Clinique Best','Sainte-Cathrine','Montreal','Quebec','H2L 1K9','427 280 995','842 456 558');
 INSERT INTO VetoDB.Clinique VALUES('2','Clinique Safari','Burberrry','Calgary','Alberta','H2L 1K9','390 337 416','591 544 371');
 INSERT INTO VetoDB.Clinique VALUES('3','Clinique Citron-Miel','Yonge','Toronto','Ontario','H2L 1K9','327 829 919','712 938 769');
+INSERT INTO  VetoDB.Clinique VALUES('C01',' Clinique Test','Sainte-Cathrine','Montreal','Quebec','H2L 1K9','427 280 995','842 456 558');
 
 INSERT INTO VetoDB.proprietaireAnimal VALUES('1','1','Tremblay','Ben','Montcalm','Montreal','Quebec','H9R 1A1','151 629 980');
-INSERT INTO VetoDB.proprietaireAnimal VALUES('1','2','Lafleur','Emily','Decelles','Montreal','Quebec','P3A 4K1','418 791 455');
-INSERT INTO VetoDB.proprietaireAnimal VALUES('1','3','Atwater','Noé','Henri-Bourassa','Montreal','Quebec','B4V 9N5','470 142 402');
-INSERT INTO VetoDB.proprietaireAnimal VALUES('3','1','Gravel','Justine','Rememberance','Toronto','Ontario','M8V 3K2','537 272 630');
-INSERT INTO VetoDB.proprietaireAnimal VALUES('3','2','Dylan','Nicholas','Bird','Toronto','Ontario','P2B 8H3','645 304 847');
-INSERT INTO VetoDB.proprietaireAnimal VALUES('2','1','Césaire','Kate','Universal','Calgary','Alberta','E3E 5P9','332 866 237');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('2','1','Lafleur','Emily','Decelles','Montreal','Quebec','P3A 4K1','418 791 455');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('3','1','Atwater','Noé','Henri-Bourassa','Montreal','Quebec','B4V 9N5','470 142 402');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('1','3','Gravel','Justine','Rememberance','Toronto','Ontario','M8V 3K2','537 272 630');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('2','3','Dylan','Nicholas','Bird','Toronto','Ontario','P2B 8H3','645 304 847');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('1','2','Césaire','Kate','Universal','Calgary','Alberta','E3E 5P9','332 866 237');
+INSERT INTO VetoDB.proprietaireAnimal VALUES('C01','1','Tremblay','Jean','Montcalm','Montreal','Quebec','H9R 1A1','151 629 980');
+
 
 INSERT INTO VetoDB.Animal VALUES('1','1','1','Moose','Chien','Doberman',0.194,82,'Noir','2020-07-19','2020-08-10','Vivant');
 INSERT INTO VetoDB.Animal VALUES('2','1','2','Silvester','Chat','Siamois',0.466,66,'Noir','2020-09-02','2020-10-05','Vivant');
@@ -19,10 +22,10 @@ INSERT INTO VetoDB.Animal VALUES('3','1','3','Tiffany','Chat','Chartreux',0.807,
 INSERT INTO VetoDB.Animal VALUES('1','2','1','Benji','Tortue','Shiba',0.418,25,'Carapace dure','2020-07-30','2020-08-04','Vivant');
 INSERT INTO VetoDB.Animal VALUES('2','2','1','Simba','Chat','Mandarin',0.449,61,'Orange','2020-04-21','2020-07-14','Vivant');
 INSERT INTO VetoDB.Animal VALUES('3','2','1','Rex','Chien','Rottweiler',0.522,15,'Gros','2020-11-25','2020-12-15','Vivant');
-INSERT INTO VetoDB.Animal VALUES('1','3','1','Milou','Chien','Shiba',0.976,44,'Blanc','2020-05-24','2020-06-02','Vivant');
+INSERT INTO VetoDB.Animal VALUES('1','3','1','Moose','Chien','Shiba',0.976,44,'Blanc','2020-05-24','2020-06-02','Vivant');
 INSERT INTO VetoDB.Animal VALUES('2','3','1','Tequila','Oiseau','Perroquet',0.155,78,'Multicolore','2020-09-15','2020-10-18','Vivant');
 INSERT INTO VetoDB.Animal VALUES('3','3','2','Cooper','Serpent','Boa',1.458,92,'Long','2020-06-10','2020-06-22','Vivant');
-INSERT INTO VetoDB.Animal VALUES('4','3','2','Poochie','Chien','Berger Allemand',0.682,20,'Gris','2020-08-04','2020-08-05','Vivant');
+INSERT INTO VetoDB.Animal VALUES('4','3','2','Moose','Chien','Berger Allemand',0.682,20,'Gris','2020-08-04','2020-08-05','Vivant');
 
 
 INSERT INTO VetoDB.Employe VALUES('1','1',true,'Calos','Jules','Moor Banks','Saint-Michel','Quebec','B2G 4E8','519 981 646','1957-11-04','M','544549199',42059);
@@ -31,6 +34,8 @@ INSERT INTO VetoDB.Employe VALUES('3','1',false,'Gregors','Gary','Marine Promena
 INSERT INTO VetoDB.Employe VALUES('4','2',false,'Freeman','Sheldon','Sea View Wynd','Longeuil','Quebec','V9Y 5K0','694 102 571','1989-06-06','M','314618921',95821);
 INSERT INTO VetoDB.Employe VALUES('5','3',true,'Anatoly','Grace','Saffron Crescent','Sherbrooke','Quebec','V7B 9Y4','830 604 109','1992-07-06','F','881955889',93362);
 INSERT INTO VetoDB.Employe VALUES('6','3',false,'Hudson','Geneviève','Sutton Parkway','Sherbrooke','Quebec','K7S 3J1','467 490 644','2001-12-26','F','416164285',73128);
+INSERT INTO VetoDB.Employe VALUES('C01','1',true,'Tremblay','Jean','Moor Banks','Saint-Michel','Quebec','B2G 4E8','519 981 646','1957-11-04','M','544549199',42059);
+
 
 INSERT INTO VetoDB.Veterinaire VALUES('1',true);
 INSERT INTO VetoDB.Veterinaire VALUES('2',false);
@@ -61,7 +66,7 @@ INSERT INTO VetoDB.Examen VALUES('8','4','3','2018-09-24','05:00','5','Nausée')
 
 INSERT INTO VetoDb.Traitement VALUES('1','Examen','120');
 INSERT INTO VetoDb.Traitement VALUES('2','Advil','30');
-INSERT INTO VetoDb.Traitement VALUES('3','Vaccination','40');
+INSERT INTO VetoDb.Traitement VALUES('3','Vaccination contre la grippe','40');
 INSERT INTO VetoDb.Traitement VALUES('4','Castration','50');
 
 INSERT INTO VetoDb.traitementeffectue VALUES('1','1','1','2','2011-02-03','2019-06-13');

@@ -4,10 +4,10 @@ CREATE SCHEMA VetoDb;
 
 CREATE TABLE IF NOT EXISTS VetoDB.Clinique(
 	noClinique VARCHAR(10)  NOT NULL,
-	nom VARCHAR(10) NOT NULL,
-	rue  VARCHAR(15)  NOT NULL,
-	ville VARCHAR(10)  NOT NULL,
-	province VARCHAR(10)  NOT NULL,
+	nom VARCHAR(20) NOT NULL,
+	rue  VARCHAR(20)  NOT NULL,
+	ville VARCHAR(20)  NOT NULL,
+	province VARCHAR(20)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
 	numTelephone  VARCHAR(15)  NOT NULL,
 	numTelecopieur  VARCHAR(15)  NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.Clinique(
 
 CREATE TABLE IF NOT EXISTS VetoDB.Traitement(
 	noTraitement VARCHAR(10)  NOT NULL,
-	description  VARCHAR(10)  NOT NULL,
+	description  VARCHAR(20)  NOT NULL,
 	cout  Numeric(5,2)  NOT NULL,
 	PRIMARY KEY (noTraitement)
 );
@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS VetoDB.Employe(
 	noEmploye  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10)  NOT NULL,
 	estGestionnaire BOOLEAN NOT NULL,
-	nom  VARCHAR(10)  NOT NULL,
-	prenom  VARCHAR(10)  NOT NULL,
-	rue  VARCHAR(10)  NOT NULL,
-	ville VARCHAR(15)  NOT NULL,
-	province VARCHAR(10)  NOT NULL,
+	nom  VARCHAR(20)  NOT NULL,
+	prenom  VARCHAR(20)  NOT NULL,
+	rue  VARCHAR(20)  NOT NULL,
+	ville VARCHAR(20)  NOT NULL,
+	province VARCHAR(20)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
 	numTelephone VARCHAR(15)  NOT NULL,
 	dateNaissance Date not NULL,
@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS VetoDB.Veterinaire(
 CREATE TABLE IF NOT EXISTS VetoDB.proprietaireanimal(
 	noProprietaire  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10)  NOT NULL,
-	nom  VARCHAR(10)  NOT NULL,
-	prenom  VARCHAR(10)  NOT NULL,
-	rue  VARCHAR(15)  NOT NULL,
-	ville VARCHAR(15)  NOT NULL,
-	province VARCHAR(10)  NOT NULL,
+	nom  VARCHAR(20)  NOT NULL,
+	prenom  VARCHAR(20)  NOT NULL,
+	rue  VARCHAR(20)  NOT NULL,
+	ville VARCHAR(20)  NOT NULL,
+	province VARCHAR(20)  NOT NULL,
 	codePostal  VARCHAR(10)  NOT NULL,
 	numTelephone VARCHAR(20)  NOT NULL,
 	
@@ -74,12 +74,12 @@ CREATE TABLE IF NOT EXISTS VetoDB.Animal(
 	noAnimal  VARCHAR(10)  NOT NULL,
 	noClinique VARCHAR(10)  NOT NULL,
 	noProprietaire  VARCHAR(10)  NOT NULL,
-	nom  VARCHAR(10)  NOT NULL,
-	type  VARCHAR(10)  NOT NULL,
-	espece  VARCHAR(10)  NOT NULL,
+	nom  VARCHAR(20)  NOT NULL,
+	type  VARCHAR(20)  NOT NULL,
+	espece  VARCHAR(20)  NOT NULL,
 	taille numeric(5,2)  NOT NULL,
 	poids  numeric(5,2)  NOT NULL,
-	description VARCHAR(20)  NOT NULL,
+	description VARCHAR(50)  NOT NULL,
 	dateNaissance DATE NOT NULL,
 	dateInscription DATE NOT NULL,
 	etatActuel etat NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS VetoDB.examen(
 	dateExamen Date NOT NULL,
 	heureExamen Time NOT NULL,
 	noVeterinaire  VARCHAR(10)  NOT NULL,
-	description  VARCHAR(20)  NOT NULL,
+	description  VARCHAR(50)  NOT NULL,
 
 	
 	PRIMARY KEY (noExamen,noClinique),
